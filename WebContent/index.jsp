@@ -7,6 +7,9 @@
 <title>Aula 08 - Passando Parâmentros</title>
 </head>
 <body>
+	
+	<%= "Seu sucesso Garantido!!"%>
+
 	<form action="receber-nome.jsp"> <!-- action - define qual será a ação após o click do botão, nesse caso, a página recever-nome-->
 		<input type="text" id="nome" name ="nome"/>
 		<input type="submit" value="Enviar"/> 

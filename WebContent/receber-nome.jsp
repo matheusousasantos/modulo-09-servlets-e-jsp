@@ -10,11 +10,7 @@
 	<% out.print(request.getParameter("nome")); %> <!-- request - recebe um parâmetro -->
 	
 	<h3>ou</h3>
-	
-	<%String nome = "Nome recebido é " + request.getParameter("nome"); 
-	  out.print(nome);
-	%>
-	
+	<%= "Nome recebido: " + request.getParameter("nome") %>
 	
 </body>
 </html>
