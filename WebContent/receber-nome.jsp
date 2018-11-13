@@ -10,7 +10,8 @@
 	<% out.print(request.getParameter("nome")); %> <!-- request - recebe um parâmetro -->
 	
 	<h3>ou</h3>
-	<%= "Nome recebido: " + request.getParameter("nome") %>
+	<%= "Nome recebido: " + request.getParameter("nome") %> <!-- Teg Expressão -->
+
 	
 </body>
 </html>
