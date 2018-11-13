@@ -15,18 +15,6 @@
 		<input type="submit" value="Enviar"/> 
 	</form>
 	
-		
-	<%!  int i = 200; %> <!-- Teg Declaração - Declara uma varável! -->
-	
-	<%!
-	public int retorno(int num){
-			return num * 3;
-	}
-	%><!-- Posso ter um método declarado! -->
-	
-	<%= retorno(3)%><!-- Retorno do método! -->
-	
-	
 	
 	
 	

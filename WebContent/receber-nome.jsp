@@ -7,11 +7,13 @@
 <title>Resposta enviada!</title>
 </head>
 <body>
-	<% out.print(request.getParameter("nome")); %> <!-- request - recebe um parâmetro -->
-	
-	<h3>ou</h3>
 	<%= "Nome recebido: " + request.getParameter("nome") %> <!-- Teg Expressão -->
-
 	
+	<%= request.getContextPath() %>
+	<%= request.getLocalPort() %>
+	
+	<% response.sendRedirect("http://www.google.com.br"); %><!--response - Define a resposta da requisição -->
+	<!-- sendRedirect - Direciona aquela resposta -->
+
 </body>
 </html>
