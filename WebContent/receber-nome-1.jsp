@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Resposta enviada!</title>
+<title>Insert title here</title>
 </head>
 <body>
-		<%= request.getParameter("nome") %>
-		<%= session.getAttribute("curso") %>
+
+	<%= session.getAttribute("curso") %>
 
 </body>
 </html>

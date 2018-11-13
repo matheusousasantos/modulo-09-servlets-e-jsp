@@ -7,8 +7,14 @@
 <title>Aula 08 - Passando Parâmentros</title>
 </head>
 <body>
-
-	<%= application.getInitParameter("estado") %> <!-- Ao iniciar a aplicação | Referênte ao web.xml -->
+	
+	<h1>Formulário Aula</h1>
+	<form action="receber-nome.jsp">
+		<input type="text" id="nome" name="nome"/>
+		<input type="submit" value="Enviar"/>
+			
+	</form>
+	<% session.setAttribute("curso", "curso de jsp"); %> <!-- Sessão inserida, pode ser resgatada em qualquer página -->
 		
 </body>
 </html>
