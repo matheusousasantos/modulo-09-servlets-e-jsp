@@ -4,12 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Aula 08 - Passando Parâmentros</title>
+<title>Resposta enviada!</title>
 </head>
 <body>
-	<form action="receber-nome.jsp"> <!-- action - define qual será a ação após o click do botão, nesse caso, a página recever-nome-->
-		<input type="text" id="nome" name ="nome"/>
-		<input type="submit" value="Enviar"/> 
-	</form>
+	<% out.print(request.getParameter("nome")); %> <!-- request - recebe um parâmetro -->
+	
+	<h3>ou</h3>
+	
+	<%String nome = "Nome recebido é " + request.getParameter("nome"); 
+	  out.print(nome);
+	%>
+	
+	
 </body>
 </html>
