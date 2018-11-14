@@ -8,12 +8,8 @@
 </head>
 <body>
 
-	<%@ page import="java.util.Date" %> <!-- Importando objeto data -->	
-	<%= "Data de Hoje: " + new Date() %>
-	
-	
-	<%@ page errorPage = "receber-nome.jsp" %> <!-- Chamando a página de erro! -->
-	<%= 100/0 %>
+	<%@ include file="pagina-include.jsp" %> <!-- inclui uma página -->
+	<%@ include file="pagina-include.jsp" %>
 
 </body>	
 </html>
