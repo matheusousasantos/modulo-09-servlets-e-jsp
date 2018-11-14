@@ -13,7 +13,7 @@
 	
 	<h2>Rodapé</h2>
 	
-	<jsp:getProperty property="nome" name="calcula"/><br>
+		<jsp:getProperty property="nome" name="calcula"/><br>
 		<jsp:getProperty property="ano" name="calcula"/><br>
 		<jsp:getProperty property="sexo" name="calcula"/><br>
 		
