@@ -7,14 +7,13 @@
 <title>Aula 08 - Passando Parâmentros</title>
 </head>
 <body>
+
+	<%@ page import="java.util.Date" %> <!-- Importando objeto data -->	
+	<%= "Data de Hoje: " + new Date() %>
 	
-	<h1>Formulário Aula</h1>
-	<form action="receber-nome.jsp">
-		<input type="text" id="nome" name="nome"/>
-		<input type="submit" value="Enviar"/>
-			
-	</form>
-	<% session.setAttribute("curso", "curso de jsp"); %> <!-- Sessão inserida, pode ser resgatada em qualquer página -->
-		
-</body>
+	
+	<%@ page errorPage = "receber-nome.jsp" %> <!-- Chamando a página de erro! -->
+	<%= 100/0 %>
+
+</body>	
 </html>

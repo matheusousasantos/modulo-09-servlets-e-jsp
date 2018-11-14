@@ -9,6 +9,9 @@
 <body>
 		<%= request.getParameter("nome") %>
 		<%= session.getAttribute("curso") %>
+		
+		<%@ page isErrorPage="true" %><!-- Definindo como uma página de erro!! -->
+		<%= exception %><!-- Definindo uma exceção -->
 
 </body>
 </html>
