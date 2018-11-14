@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<%= session.getAttribute("curso") %>
-
+	<h2>Rodapé</h2>
 </body>
 </html>

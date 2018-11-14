@@ -8,8 +8,9 @@
 </head>
 <body>
 	<h1>Index</h1>
-	<jsp:forward page="receber-nome.jsp">
-	<jsp:param value="www.google.com.br" name="paramforward"/>
-	</jsp:forward>
+	<jsp:include page="cabecalho.jsp"/>
+	<h3>sdsddddddsssd sd sdsds sdsd ssd sds dsd</h3>
+	<jsp:include page="rodape.jsp"></jsp:include>
+
 </body>	
 </html>
