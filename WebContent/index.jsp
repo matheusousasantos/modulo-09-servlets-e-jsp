@@ -7,9 +7,9 @@
 <title>Aula 08 - Passando Parâmentros</title>
 </head>
 <body>
-
-	<%@ include file="pagina-include.jsp" %> <!-- inclui uma página -->
-	<%@ include file="pagina-include.jsp" %>
-
+	<h1>Index</h1>
+	<jsp:forward page="receber-nome.jsp">
+	<jsp:param value="www.google.com.br" name="paramforward"/>
+	</jsp:forward>
 </body>	
 </html>

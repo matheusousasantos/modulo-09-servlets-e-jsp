@@ -7,11 +7,7 @@
 <title>Resposta enviada!</title>
 </head>
 <body>
-		<%= request.getParameter("nome") %>
-		<%= session.getAttribute("curso") %>
-		
-		<%@ page isErrorPage="true" %><!-- Definindo como uma página de erro!! -->
-		<%= exception %><!-- Definindo uma exceção -->
-
+	<h1>Receber Nome</h1>
+	<% request.getParameter("paramforward"); %>
 </body>
 </html>
