@@ -9,13 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:setProperty property="*" name="calcula"/><!-- Não esqueça esse! -->
+
+	<h3>Acesso negado ao usuário</h3>
 	
-	<h2>Rodapé</h2>
-	
-		<jsp:getProperty property="nome" name="calcula"/><br>
-		<jsp:getProperty property="ano" name="calcula"/><br>
-		<jsp:getProperty property="sexo" name="calcula"/><br>
-		
 </body>
 </html>
