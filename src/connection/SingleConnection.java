@@ -10,7 +10,7 @@ import java.sql.DriverManager;
  */
 public class SingleConnection {
 																		//   Se a conexão cair ele vai conectar automaticamente
-	private static String url = "jdbc:postgresql://localhost:5432/postgres?autoReconnect=true";
+	private static String url = "jdbc:postgresql://localhost:5432/curso-jsp?autoReconnect=true";
 	private static String password = "admin";
 	private static String user = "postgres";
 	private static Connection connection = null;
