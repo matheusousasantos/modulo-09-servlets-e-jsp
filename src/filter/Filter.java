@@ -20,6 +20,22 @@ public class Filter implements javax.servlet.Filter {
 
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2) throws IOException, ServletException {
+		arg2.doFilter(arg0, arg1);
+		try {
+		connection.commit();
+		}catch(Exception e) {
+			try {
+				e.printStackTrace();
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void init(FilterConfig agr0) throws ServletException{
+		connection = SingleConnection.getConnection();
 	}
 
 }
