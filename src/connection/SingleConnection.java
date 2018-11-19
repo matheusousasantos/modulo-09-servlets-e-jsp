@@ -14,7 +14,7 @@ public class SingleConnection {
 	private static String password = "admin";
 	private static String user = "postgres";
 	private static Connection conn = null;
-	
+	 
 	static {
 		conectar();	/*Vamos criar uma chamada estática para nosso método conectar. A partir do momento que invocar-mos essa classe,
 			  		de qualquer forma ela vai execultar o conectar() garantindo nossa conexão com o BD*/
@@ -36,7 +36,7 @@ public class SingleConnection {
 		}
 	}
 	
-	public static Connection getConn() { //Esse método que mais trazer a coneção.
+	public static Connection getConnection() { //Esse método que mais trazer a coneção.
 		return conn;
 	}
 

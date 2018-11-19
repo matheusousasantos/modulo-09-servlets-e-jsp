@@ -8,4 +8,10 @@
     <param-name>estado</param-name>
     <param-value>Maranhão</param-value>
   </context-param>
+  
+  <filter>
+  	<filter-name>filter</filter-name>
+  	<filter-class>filter.Filter</filter-class>
+  </filter>
+  
 </web-app>
