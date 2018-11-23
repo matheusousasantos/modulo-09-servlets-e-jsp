@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +37,15 @@ public class Usuario extends HttpServlet {
 		usuario.setSenha(senha);
 		
 		dao.salvar(usuario);
+		
+		try {
+		RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
+			request.setAttribute("usuarios", dao.listarTodos());
+			view.forward(request, response);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
