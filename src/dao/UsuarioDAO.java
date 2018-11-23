@@ -40,6 +40,26 @@ public class UsuarioDAO {
 		}
 	}
 	
+	public void delete(String login) {
+		
+		String sql = "DELETE FROM usuario WHERE login = '"+login+"'";
+		try {
+			PreparedStatement pmt = connection.prepareStatement(sql);
+			pmt.execute();
+			
+			connection.commit();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+	}
+	
 	public List<BeanCursoJsp> listarTodos() throws SQLException  {
 		List<BeanCursoJsp> lista = new ArrayList<>();
 		

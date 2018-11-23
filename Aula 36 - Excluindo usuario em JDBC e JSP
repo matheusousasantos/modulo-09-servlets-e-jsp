@@ -1,0 +1,51 @@
+Vamos agora criar o excluir porêm vou passar como parâmentro uma ação(que servirá como validação) e o login que será o registro deletado
+
+* Vou apontar pro Servlet passando um parâmentro e definindo o usuário
+
+	cadastro-usuario.jsp
+	<td><a href="salvarUsuario?acao=delete&user=${user.login}">Excluir</a></td>
+
+* O método delete será invocado no método GET:
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+					
+	String acao = request.getParameter("acao");
+	String user = request.getParameter("user");
+			
+
+	Se for mesmo o delete faça...
+		if(acao.equalsIgnoreCase("delete")) { 
+		dao.delete(user);
+				
+	 Após deletar ele preciso fazer o mesmo processo de atualização da página...
+		try {
+		RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
+			request.setAttribute("usuarios", dao.listarTodos());
+			view.forward(request, response);
+						
+			} catch (SQLException e) {
+			e.printStackTrace();
+			}
+		}
+	}
+
+* Método deletar:
+	public void delete(String login) {
+			
+	String sql = "DELETE FROM usuario WHERE login = '"+login+"'";
+	try {
+		PreparedStatement pmt = connection.prepareStatement(sql);
+		pmt.execute();
+				
+		connection.commit();
+				
+		} catch (SQLException e) {
+		e.printStackTrace();
+		try {
+		connection.rollback();
+		} catch (SQLException e1) {
+		e1.printStackTrace();
+		}
+	}
+			
+	}

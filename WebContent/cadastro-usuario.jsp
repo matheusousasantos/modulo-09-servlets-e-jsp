@@ -34,6 +34,8 @@
 	 			<td><c:out value="${user.login}"></c:out></td>
 	 			<td><c:out value="${user.senha}"></c:out></td>
 	 			
+	 			<!--(1) Vou apontar pro Servlet passando um parâmentro e definindo o usuário -->
+	 			<td><a href="salvarUsuario?acao=delete&user=${user.login}">Excluir</a></td>
 	 		</tr>
 	 	</c:forEach>
 	 
