@@ -14,14 +14,20 @@
 	
 	 <form action="salvarUsuario" method="post">
 	 	<table>
+	 	
+	 	<tr><!-- Linha -->
+	 		<td>Código:</td><!-- célula     Id: somente leitura-->
+	 		<td><input type="text" id="id"  readonly="readonly" name="id" value="${user.id}"></td>
+	 	</tr>
+	 	
 	 	<tr><!-- Linha -->
 	 		<td>Login:</td><!-- célula -->
-	 		<td><input type="text" id="login" name="login"></td>
+	 		<td><input type="text" id="login" name="login" value="${user.login}"></td>
 	 	</tr>
 	 	
 	 	<tr>
 	 		<td>Senha:</td>
-	 		<td><input type="password" id="senha" name="senha"></td>
+	 		<td><input type="password" id="senha" name="senha" value="${user.senha}"></td>
 	 	</tr>
 	 	
 	 	</table>
@@ -31,14 +37,15 @@
 	 <table>
 	 	<c:forEach items="${usuarios}" var="user">
 	 		<tr>
+	 			<td><c:out value="${user.id}"></c:out></td><!-- Mostrando o Id na tabela -->
 	 			<td><c:out value="${user.login}"></c:out></td>
 	 			<td><c:out value="${user.senha}"></c:out></td>
 	 			
-	 			<!--(1) Vou apontar pro Servlet passando um parâmentro e definindo o usuário -->
 	 			<td><a href="salvarUsuario?acao=delete&user=${user.login}">Excluir</a></td>
+	 			<td><a href="salvarUsuario?acao=editar&user=${user.login}">Editar</a></td>
 	 		</tr>
 	 	</c:forEach>
-	 
+	 	
 	 </table>
 	 
 </body>

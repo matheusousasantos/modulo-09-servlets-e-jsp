@@ -29,13 +29,11 @@ public class Usuario extends HttpServlet {
 		
 		String acao = request.getParameter("acao");
 		String user = request.getParameter("user");
-		
-
-//(2)   Se for mesmo o delete faça...
+        
+//		Referênte ao link clicado
 		if(acao.equalsIgnoreCase("delete")) { 
 			dao.delete(user);
 			
-//(3)		Após deletar ele preciso fazer o mesmo processo de atualização da página...
 			try {
 			RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 				request.setAttribute("usuarios", dao.listarTodos());
@@ -45,20 +43,46 @@ public class Usuario extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
+//		Referênte ao link clicado
+//		Ao clicar os valores referêntes na tabela(o login) será inserido na consultar do dao e retorará o registro referênte.
+		else if(acao.equalsIgnoreCase("editar")) {
+			
+			BeanCursoJsp obj = dao.consultar(user);
+//          Em reposta na própia tela cadastro-usuario será inserido, vindo do BD(obj), no ID,LOGIN e SENHA do HTML
+//			Como é uma consulta esse registro trará no ID assim quando for salvo novamente só irá atualizar não add novamente.L72
+			RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
+			request.setAttribute("user",obj);
+			view.forward(request, response);
+			
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+//		Se o id não existe ele vai salvar
+		String id = request.getParameter("id");
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		
 		BeanCursoJsp usuario = new BeanCursoJsp();
+		
+//		Passando o id
+//		Se o id não estiver vázio faz a conversão senão adiciona 0.
+		usuario.setId(!id.isEmpty()? Long.parseLong(id) : 0);
 		usuario.setLogin(login);
 		usuario.setSenha(senha);
 		
-		dao.salvar(usuario);
+//		Se o id for nulo ou vazio ele vai salvar
+		if(id == null || id.isEmpty()) {
+			dao.salvar(usuario);
+		} else {
+//		Se já exite o id ele vai atualizar	
+			dao.atualizar(usuario);
+		}
 		
 		try {
+//		Esse método retorna todos os usuarios do BD inserindo em uma tabela <c:forEach items="${usuarios}" var="user">
 		RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 			request.setAttribute("usuarios", dao.listarTodos());
 			view.forward(request, response);

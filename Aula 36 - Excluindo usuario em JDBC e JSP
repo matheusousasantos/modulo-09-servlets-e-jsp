@@ -1,11 +1,11 @@
-Vamos agora criar o excluir porÍm vou passar como par‚mentro uma aÁ„o(que servir· como validaÁ„o) e o login que ser· o registro deletado
+Vamos agora criar o excluir por√™m vou passar como par√¢mentro uma a√ß√£o(que servir√° como valida√ß√£o) e o login que ser√° o registro deletado
 
-* Vou apontar pro Servlet passando um par‚mentro e definindo o usu·rio
+* Vou apontar pro Servlgit et passando um par√¢mentro e definindo o usu√°rio
 
 	cadastro-usuario.jsp
 	<td><a href="salvarUsuario?acao=delete&user=${user.login}">Excluir</a></td>
 
-* O mÈtodo delete ser· invocado no mÈtodo GET:
+* O m√©todo delete ser√° invocado no m√©todo GET:
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 					
@@ -13,11 +13,11 @@ Vamos agora criar o excluir porÍm vou passar como par‚mentro uma aÁ„o(que servir
 	String user = request.getParameter("user");
 			
 
-	Se for mesmo o delete faÁa...
+	Se for mesmo o delete fa√ßa...
 		if(acao.equalsIgnoreCase("delete")) { 
 		dao.delete(user);
 				
-	 ApÛs deletar ele preciso fazer o mesmo processo de atualizaÁ„o da p·gina...
+	 Ap√≥s deletar ele preciso fazer o mesmo processo de atualiza√ß√£o da p√°gina...
 		try {
 		RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 			request.setAttribute("usuarios", dao.listarTodos());
@@ -29,7 +29,7 @@ Vamos agora criar o excluir porÍm vou passar como par‚mentro uma aÁ„o(que servir
 		}
 	}
 
-* MÈtodo deletar:
+* M√©todo deletar:
 	public void delete(String login) {
 			
 	String sql = "DELETE FROM usuario WHERE login = '"+login+"'";
