@@ -1,0 +1,17 @@
+Vamos acresentar o botão de excluir e editar
+
+pesquisa: excluir icon
+
+Vou criar, dentro do resourse uma pasta chamada 'img'  vou copiar as imagens baixadas
+Vamos substituir onde tem a palavra excluir a imagem. assim como o editar
+
+<img src=""/>
+precisamos tambem definir a altura e largura:
+<img src="" width="20px" height="20px"/>
+
+Usando o alt="" se o caminho da imagem tiver errada, com essa tag, ele mosta o valor que está dentro da TAG.
+
+Usando o title="" mostra o valor quando por em cima do mouse
+
+Defindo as colunas da Tabela*
+precisamos do tr(linha) e th(célula usada no título) pra da o título pra nossa coluna

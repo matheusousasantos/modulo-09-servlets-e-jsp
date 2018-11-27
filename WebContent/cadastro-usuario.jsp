@@ -55,16 +55,25 @@
 		<table class="responsive-table">
 		
 			<caption>Usuários Cadastrado</caption>
-		
+			<tr><!-- Linha de título da tabela -->
+				<th>#</th>
+				<th>LOGIN</th>
+				<th>SENHA</th>
+				<th>EXCLUIR</th>
+				<th>EDITAR</th>
+			</tr>
 			<c:forEach items="${usuarios}" var="user">
 				<tr>
 					<td><c:out value="${user.id}"></c:out></td>
 					<!-- Mostrando o Id na tabela -->
 					<td><c:out value="${user.login}"></c:out></td>
 					<td><c:out value="${user.senha}"></c:out></td>
-	
-					<td><a href="salvarUsuario?acao=delete&user=${user.login}">Excluir</a></td>
-					<td><a href="salvarUsuario?acao=editar&user=${user.login}">Editar</a></td>
+
+					<td><a href="salvarUsuario?acao=delete&user=${user.login}"><img
+					src="resourses/img/botao-excluir.jpg" alt="Excluir" title="excluir" width="20px"></a></td>
+					
+					<td><a href="salvarUsuario?acao=editar&user=${user.login}"><img alt="Editar" 
+					src="resourses/img/botao-editar.png" title="editar" width="20px"></a></td>
 				</tr>
 			</c:forEach>
 		</table>
