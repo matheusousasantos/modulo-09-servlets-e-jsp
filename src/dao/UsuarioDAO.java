@@ -40,9 +40,9 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public void delete(String login) {
+	public void delete(String id) {
 		
-		String sql = "DELETE FROM usuario WHERE login = '"+login+"'";
+		String sql = "DELETE FROM usuario WHERE id = '"+id+"'";
 		try {
 			PreparedStatement pmt = connection.prepareStatement(sql);
 			pmt.execute();
@@ -60,7 +60,7 @@ public class UsuarioDAO {
 		
 	}
 	
-	public List<BeanCursoJsp> listarTodos() throws SQLException  {
+	public List<BeanCursoJsp> listar() throws SQLException  {
 		List<BeanCursoJsp> lista = new ArrayList<>();
 		
 		String sql = "SELECT * FROM usuario";
@@ -83,9 +83,9 @@ public class UsuarioDAO {
 			return lista;
 	}
 
-	public BeanCursoJsp consultar(String login) {
+	public BeanCursoJsp consultar(String id) {
 		
-		String sql = "SELECT * FROM usuario WHERE login = '"+login+"'";
+		String sql = "SELECT * FROM usuario WHERE id = '"+id+"'";
 		try {
 		PreparedStatement pmt = connection.prepareStatement(sql);
 		ResultSet rs = pmt.executeQuery();

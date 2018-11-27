@@ -1,0 +1,68 @@
+Carregando a lista de usuários quando logar página:
+
+Quando clicamos no Cadastro de usuários é a hora que o sistema carrega redireciona pra tela de cadastro
+Então vamos passar um parâmetro nesse link(c.usuario) dizendo que queremos carregar a lista de usuários 
+na ela cadastro-usuario.jsp
+
+No servlet já temos um parâmetro de ação que podemos usar:
+String acao = request.getParameter("acao");
+
+Passamos a servlet que irá interceptar no processo
+<a href="salvarUsuario">Cadastro Usuarios</a>, passando o parâmetro de ação, <a href="salvarUsuario
+ 
+ ?listartodos">Cadastro Usuarios</a>
+ 
+ acao?listartodos -> O parâmetro de ação vai ser listar todos. Será trabalhado na sevlet
+ 
+ Obs: Quando chamamos através de link ele sempre cai no doGet(). Quando é passado dentro de um formulário
+ quase sempre é no doPost().
+ 
+ Vamos agora criar outra ação:
+ else if(acao.equalsIgnoreCase("listartodos")) { equalsIgnoreCase-> Ignore caixa alta e baixa
+ 
+ 
+ 	RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
+				request.setAttribute("usuarios", dao.listarTodos());
+				view.forward(request, response);
+	
+	RequestDispatcher view-> Indica pra qual tela vai redirecionar
+	
+	request.setAttribute("usuarios", dao.listarTodos())-> vai sertar para <c:forEach items="${usuarios}" var="user">
+	toda a lista de usuarios, ele vai no banco e vai carregar.
+	
+	view.forward(request, response);-> termina de dar a resposta para o navegador.
+	
+	
+Pronto, o sistema passa a mostar a lista de usuarios
+	
+Trabalhando com id como atributo de verificação:
+
+Precisamos usar o id pra deletar e atualizar os regitros porque ele é um atribulto único de qualquer registro.
+Precisa ser arrumado desde o DAO, passando para o servlet e a tela
+	
+Botão cancelar:
+Precisamos de um botão para cancelar a ação de atualizar ou inserir um usuário no sistema
+
+Vou dicionar um id no formulário para ele ser alterado:
+input type="text" id="login" name="login" id="formUser"/>
+
+vou criar uma rotina de js para pegar esse formulário.
+<input type="submit" value="Cancelar" onclick="document.getElementById('formUser')">
+
+vou inserir uma nova ação:
+onclick="document.getElementById('formUser').action = 'salvarUsuario?acao=reset'"></td>
+
+Quando clicado ele vai cair no método doPost do Servlet
+	
+	String acao = request.getParameter("acao");
+//      Se a ação não for nula e se for igual a reset:		
+		if(acao != null && acao.equalsIgnoreCase("reset")) {
+		
+Por fim vou definir uma nova ação que será o reset.
+	
+	Pronto criamos um formuláio completo..
+	
+	
+	
+	
+		
