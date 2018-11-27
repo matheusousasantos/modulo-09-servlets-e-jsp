@@ -1,0 +1,9 @@
+Vou precisar adicinar um novo atributo na tabela usuario = nome
+
+SQL: ALTER TABLE usuario ADD COLUMN nome character varying(255); 
+
+Obs> Sempre salve o SQL usuado.
+
+Quando adicionar um novo atributo no BD, voce precisa alterar todo o sistema
+
+Manutenção: O que nós fizemos no sistema.

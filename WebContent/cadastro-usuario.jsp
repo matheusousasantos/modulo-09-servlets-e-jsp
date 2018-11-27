@@ -35,7 +35,7 @@
 						<td>Login:</td>
 						<!-- célula -->
 						<td><input type="text" id="login" name="login"
-							value="${user.login}"></td>
+							value="${user.login}"></td><!-- Mostra na hora que formos editar -->
 					</tr>
 
 					<tr>
@@ -43,6 +43,13 @@
 						<td><input type="password" id="senha" name="senha"
 							value="${user.senha}"></td>
 					</tr>
+					
+					<tr>
+						<td>Nome:</td>
+						<td><input type="text" id="nome" name="nome"
+							value="${user.nome}"></td>
+					</tr>
+					
 					<tr>
 						<td></td>
 						<td><input type="submit" value="Salvar"></td>
@@ -58,7 +65,7 @@
 			<tr><!-- Linha de título da tabela -->
 				<th>#</th>
 				<th>LOGIN</th>
-				<th>SENHA</th>
+				<th>NOME</th>
 				<th>EXCLUIR</th>
 				<th>EDITAR</th>
 			</tr>
@@ -67,7 +74,7 @@
 					<td><c:out value="${user.id}"></c:out></td>
 					<!-- Mostrando o Id na tabela -->
 					<td><c:out value="${user.login}"></c:out></td>
-					<td><c:out value="${user.senha}"></c:out></td>
+					<td><c:out value="${user.nome}"></c:out></td>
 
 					<td><a href="salvarUsuario?acao=delete&user=${user.login}"><img
 					src="resourses/img/botao-excluir.jpg" alt="Excluir" title="excluir" width="20px"></a></td>
