@@ -1,0 +1,21 @@
+Vamos mostrar uma mensagem pro usuário quando acontecer alguma exceção, no nosso caso
+Usuário já cadastrado na base de dados
+
+Vou criar uma tag no cadastro-usuario onde mostrará a mensagem na tela
+
+Vou colocar o JSP
+<h3>${msg}</h3>
+
+Agora, na Servlet, precisamos setar a mensagem após validação
+pra eu poder validar precisa:
+
+		O id precisa ser nulo ou vazio(criando novo)
+		e se já existe usuário cadastrado com aquele login
+		if(id == null || id.isEmpty() && !dao.validarLogin(login)) {
+					
+			Se isso for verdade vamos setar o atributo:		
+			request.setAttribute("msg", "Usuário já existe na base de dados");
+			"msg" -> passado em formato de string.
+					
+		} 
+

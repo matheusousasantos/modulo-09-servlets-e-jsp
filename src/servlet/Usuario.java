@@ -34,6 +34,8 @@ public class Usuario extends HttpServlet {
 			if (acao.equalsIgnoreCase("delete")) {
 				dao.delete(user);
 
+				System.out.println("Deletado");
+				
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 				request.setAttribute("usuarios", dao.listar());
 				view.forward(request, response);
@@ -88,6 +90,13 @@ public class Usuario extends HttpServlet {
 			usuario.setNome(nome);
 			
 			try {
+//				pra eu poder validar precisa:
+//				O id precisa ser nulo ou vazio(criando novo)
+//				e se já existe usuário cadastrado com aquele login
+				if(id == null || id.isEmpty() && !dao.validarLogin(login)) {
+					request.setAttribute("msg", "Usuário já cadastrado!");
+					System.out.println("Erro! Cadastrado");
+				}
 			
 				if (id == null || id.isEmpty() && dao.validarLogin(login) ) {
 					dao.salvar(usuario);
@@ -96,9 +105,7 @@ public class Usuario extends HttpServlet {
 				} else if(id != null && !id.isEmpty()){
 					dao.atualizar(usuario);
 					System.out.println("Atualizando");
-				} else if(dao.validarLogin(login) == false) {
-					System.out.println("Usuário já existe na base de dados");
-				}
+				} 
 
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 				request.setAttribute("usuarios", dao.listar());
