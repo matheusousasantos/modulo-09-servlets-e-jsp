@@ -31,7 +31,6 @@ public class Usuario extends HttpServlet {
 
 		try {
 
-			// Referênte ao link clicado
 			if (acao.equalsIgnoreCase("delete")) {
 				dao.delete(user);
 
@@ -42,10 +41,7 @@ public class Usuario extends HttpServlet {
 			} else if (acao.equalsIgnoreCase("editar")) {
 
 				BeanCursoJsp obj = dao.consultar(user);
-				// Em reposta na própia tela cadastro-usuario será inserido, vindo do BD(obj),
-				// no ID,LOGIN e SENHA do HTML
-				// Como é uma consulta esse registro trará no ID assim quando for salvo
-				// novamente só irá atualizar não add novamente.L72
+				
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 				request.setAttribute("user", obj);
 				view.forward(request, response);
@@ -66,7 +62,6 @@ public class Usuario extends HttpServlet {
 			throws ServletException, IOException {
 
 		String acao = request.getParameter("acao");
-		// Se a ação não for nula e se for igual a reset:
 		if (acao != null && acao.equalsIgnoreCase("reset")) {
 
 			try {
@@ -87,25 +82,24 @@ public class Usuario extends HttpServlet {
 			String nome = request.getParameter("nome");
 
 			BeanCursoJsp usuario = new BeanCursoJsp();
-
-			// Passando o id
-			// Se o id não estiver vázio faz a conversão senão adiciona 0.
 			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			usuario.setNome(nome);
-
-			// Se o id for nulo ou vazio ele vai salvar
-			if (id == null || id.isEmpty()) {
-				dao.salvar(usuario);
-			} else {
-				// Se já exite o id ele vai atualizar
-				dao.atualizar(usuario);
-			}
-
+			
 			try {
-				// Esse método retorna todos os usuarios do BD inserindo em uma tabela
-				// <c:forEach items="${usuarios}" var="user">
+			
+				if (id == null || id.isEmpty() && dao.validarLogin(login) ) {
+					dao.salvar(usuario);
+					System.out.println("Salvando");
+					
+				} else if(id != null && !id.isEmpty()){
+					dao.atualizar(usuario);
+					System.out.println("Atualizando");
+				} else if(dao.validarLogin(login) == false) {
+					System.out.println("Usuário já existe na base de dados");
+				}
+
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 				request.setAttribute("usuarios", dao.listar());
 				view.forward(request, response);

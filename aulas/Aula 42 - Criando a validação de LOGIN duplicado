@@ -1,0 +1,65 @@
+O nosso sisema, não tem nehuma validação se existe usuários com o mesmo login, as senha pode ter porém
+o login não..
+
+Validando o cadastro:
+Não pode adicionar um login repetido
+
+Vamos criar um novo método no DAO de validação
+
+validarLogin()-> método vai receber um login e retornar um boolean, true já existe false liberado pra usar
+
+SQL:
+SELECT COUNT(*) qtd FROM usuario WHERE login = '1';
+
+Se retornar maior que zero posso cadastrar senão não posso
+
+public boolean validarLogin(String login) {
+		
+		String sql = "SELECT CONT(*) qtd FROM usuario WHERE login = '" +login+ "'"; returna na quantidade de registros com login igual ao
+		parâmetro passado
+		
+		try {
+		PreparedStatement pmt = connection.prepareStatement(sql);
+		ResultSet rs = pmt.executeQuery();
+		
+			if(rs.next()) {
+				
+				eturn rs.getInt("qtd") <= 0; Se a qtd é menor ou igual a zero retorna true.
+				
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false; senão retorna false.
+	}
+	
+	
+	Agora precisamos jogar a valição no Servlet
+	
+Erro! Ao tentarmos inserir um novo registro duplicado(que já existe no banco de dados) e vai cair nesse if:
+				
+1- Se o id for nulo ou id estiver vazio e se login não existe 		
+	(id == null || id.isEmpty() && dao.validarLogin(login) ) {
+2- Salve o usuario
+	dao.salvar(usuario);
+
+porém será execultado o código do else:
+
+	else {
+	dao.atualizar(usuario);
+
+	}	
+
+Arrumando o erro
+colocamos outra condição criando um else if:
+
+else if(id != null && !id.isEmpty()){ Se o id não for nulo E não estiver vazio
+	dao.atualizar(usuario);
+	}
+	
+Na proxima aula vamos mostrar uma mensagem pro usuario que não pode cadastrar usuário com o mesmo login
+	
+	
+	
