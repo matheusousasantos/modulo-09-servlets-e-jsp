@@ -55,6 +55,12 @@
 							<td><input type="text" id="nome" name="nome"
 								value="${user.nome}"></td>
 						</tr>
+						
+						<tr>
+							<td>Telefone:</td>
+							<td><input type="text" id="telefone" name="telefone"
+								value="${user.telefone}"></td>
+						</tr>
 
 						<tr>
 							<td></td>
@@ -79,6 +85,7 @@
 				<th>#</th>
 				<th>LOGIN</th>
 				<th>NOME</th>
+				<th>TELEFONE</th>
 				<th>EXCLUIR</th>
 				<th>EDITAR</th>
 			</tr>
@@ -87,6 +94,8 @@
 					<td><c:out value="${user.id}"></c:out></td>
 					<td><c:out value="${user.login}"></c:out></td>
 					<td><c:out value="${user.nome}"></c:out></td>
+					<td><c:out value="${user.telefone}"></c:out></td>
+					
 
 					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
 							src="resourses/img/botao-excluir.jpg" alt="Excluir"

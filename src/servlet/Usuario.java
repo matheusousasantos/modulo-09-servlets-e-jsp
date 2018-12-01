@@ -47,6 +47,7 @@ public class Usuario extends HttpServlet {
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 				request.setAttribute("user", obj);
 				view.forward(request, response);
+				
 			} else if (acao.equalsIgnoreCase("listartodos")) {
 
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
@@ -64,6 +65,7 @@ public class Usuario extends HttpServlet {
 			throws ServletException, IOException {
 
 		String acao = request.getParameter("acao");
+		System.out.println(acao);
 		if (acao != null && acao.equalsIgnoreCase("reset")) {
 
 			try {
@@ -82,12 +84,14 @@ public class Usuario extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String nome = request.getParameter("nome");
+			String telefone = request.getParameter("telefone");
 
 			BeanCursoJsp usuario = new BeanCursoJsp();
 			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			usuario.setNome(nome);
+			usuario.setTelefone(telefone);
 			
 			try {
 //				pra eu poder validar precisa:
