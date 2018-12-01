@@ -157,6 +157,26 @@ public boolean validarLogin(String login) {
 		
 		return false;
 	}
+
+public boolean validarSenha(String senha) {
+	
+	String sql = "SELECT COUNT(1) qtd FROM usuario WHERE senha = '" +senha+ "'";
+	try {
+	PreparedStatement pmt = connection.prepareStatement(sql);
+	ResultSet rs = pmt.executeQuery();
+	
+		if(rs.next()) {
+			
+			return rs.getInt("qtd") <= 0;
+			
+		}
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+	
+	return false;
+}
 	
 	
 

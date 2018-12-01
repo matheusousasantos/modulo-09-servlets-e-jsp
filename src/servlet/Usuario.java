@@ -98,11 +98,16 @@ public class Usuario extends HttpServlet {
 //				O id precisa ser nulo ou vazio(criando novo)
 //				e se já existe usuário cadastrado com aquele login
 				if(id == null || id.isEmpty() && !dao.validarLogin(login)) {
-					request.setAttribute("msg", "Usuário já cadastrado!");
-					System.out.println("Erro! Cadastrado");
+					request.setAttribute("msgLogin", "Login já cadastrado!");
+					System.out.println("Erro! Login - Já cadastrado");
+				}
+				
+				if(id == null || id.isEmpty() && !dao.validarSenha(senha)) {
+					request.setAttribute("msgSenha", "Senha já cadastrado!");
+					System.out.println("Erro! Senha - Já cadastrado");
 				}
 			
-				if (id == null || id.isEmpty() && dao.validarLogin(login) ) {
+				if ((id == null || id.isEmpty()) && (dao.validarLogin(login) && dao.validarSenha(senha))) {
 					dao.salvar(usuario);
 					System.out.println("Salvando");
 					

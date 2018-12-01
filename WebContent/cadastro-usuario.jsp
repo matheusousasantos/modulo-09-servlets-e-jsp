@@ -20,8 +20,8 @@
 <body>
 	<center>
 		<h1>Cadastro de Usuário</h1>
-		<h3 style="color: red">${msg}</h3>
-
+		<h3 style="color: red">${msgLogin}</h3> <h3 style="color: red">${msgSenha}</h3>
+ 
 
 		<form action="salvarUsuario" method="post" id="formUser">
 			<ul class="form-style-1">
