@@ -1,0 +1,19 @@
+Aula Pan **
+Após o sistema informa que os dados já existem no banco de dados o
+mesmo limpa os dados do navegador. Precisamos mostrar os dados 
+novamente
+
+Para isso vamos definir mais um IF no doPost, ele representarar os dados do objeto usuario que já foram captados:
+
+Se existem usuarios já cadastados com os dados passado aproveitando o objeto usuario
+então ensira novamente nos campos do formulário os dados fornecidos para serem alterados
+
+	if(!(dao.validarLogin(login) && dao.validarSenha(senha))) {
+	
+//	Mostra novamente os dados na tela	
+	request.setAttribute("user", usuario)
+					
+	}
+	
+Obs: Não precisamos do RequestDisptcher pois em baixo existe uma rotina que irár apontar para a mesma tela que será
+mosrado os dados do cliente

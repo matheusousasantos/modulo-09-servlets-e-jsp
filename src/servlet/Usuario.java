@@ -87,7 +87,7 @@ public class Usuario extends HttpServlet {
 			String telefone = request.getParameter("telefone");
 
 			BeanCursoJsp usuario = new BeanCursoJsp();
-			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
+			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : null);
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			usuario.setNome(nome);
@@ -100,11 +100,13 @@ public class Usuario extends HttpServlet {
 				if(id == null || id.isEmpty() && !dao.validarLogin(login)) {
 					request.setAttribute("msgLogin", "Login já cadastrado!");
 					System.out.println("Erro! Login - Já cadastrado");
+					
 				}
 				
 				if(id == null || id.isEmpty() && !dao.validarSenha(senha)) {
 					request.setAttribute("msgSenha", "Senha já cadastrado!");
 					System.out.println("Erro! Senha - Já cadastrado");
+					
 				}
 			
 				if ((id == null || id.isEmpty()) && (dao.validarLogin(login) && dao.validarSenha(senha))) {
@@ -114,7 +116,13 @@ public class Usuario extends HttpServlet {
 				} else if(id != null && !id.isEmpty()){
 					dao.atualizar(usuario);
 					System.out.println("Atualizando");
-				} 
+				}
+				
+				if(!(dao.validarLogin(login) && dao.validarSenha(senha))) {
+//				Mostra novamente os dados na tela	
+					request.setAttribute("user", usuario);
+					
+				}
 
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 				request.setAttribute("usuarios", dao.listar());
