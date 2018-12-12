@@ -13,6 +13,7 @@
 <body>
 	
 	<h1>Produtos</h1>
+	<h3>${msg}</h3>
 	
 	<form action="salvarProduto" method="post" id="formularioProdutos">
 		<table>
@@ -24,27 +25,24 @@
 			
 			<tr>
 				<td>NOME</td>
-				<td><input type="text" id="nome"
-				 name="nome" value ="${x.nome}"></td>
+				<td><input type="text" id="nome" name="nome" value ="${x.nome}"></td>
 			</tr>
 			
 			<tr>
 				<td>QUANTIDADE</td>
-				<td><input type="text" id="quantidade"
-				 name="quantidade" value ="${x.quantidade}"></td>
+				<td><input type="text" id="quantidade" name="quantidade" value ="${x.quantidade}"></td>
 			</tr>
 			
 			<tr>
 				<td>VALOR</td>
-				<td><input type="text" id="valor"
-				 name="valor" value ="${x.valor}"></td>
+				<td><input type="text" id="valor" name="valor" value ="${x.valor}"></td>
 			</tr>
 			
 			<tr>
 				<td></td>
 				<td><input type="submit" value="Enviar">  
 				<input type="submit" value="Cancelar" 
-				onclick="document.getElementById('formularioProdutos').action = 'salvarProduto?acao=reset' "></td>
+				onclick="document.getElementById('formularioProdutos').action = 'salvarProduto?acao=reset'"></td>
 				<td></td>
 			</tr>
 			

@@ -17,7 +17,7 @@ import dao.UsuarioDAO;
 public class Usuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	UsuarioDAO dao = new UsuarioDAO();
+	UsuarioDAO daoUsuario = new UsuarioDAO();
 
 	public Usuario() {
 		super();
@@ -25,24 +25,20 @@ public class Usuario extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String acao = request.getParameter("acao");
-		String user = request.getParameter("user");
-
 		try {
+			String acao = request.getParameter("acao");
+			String user = request.getParameter("user");
 
 			if (acao.equalsIgnoreCase("delete")) {
-				dao.delete(user);
-
-				System.out.println("Deletado");
+				daoUsuario.delete(user);
 				
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
-				request.setAttribute("usuarios", dao.listar());
+				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
 
 			} else if (acao.equalsIgnoreCase("editar")) {
 
-				BeanCursoJsp obj = dao.consultar(user);
+				BeanCursoJsp obj = daoUsuario.consultar(user);
 				
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 				request.setAttribute("user", obj);
@@ -51,7 +47,7 @@ public class Usuario extends HttpServlet {
 			} else if (acao.equalsIgnoreCase("listartodos")) {
 
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
-				request.setAttribute("usuarios", dao.listar());
+				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
 
 			}
@@ -70,7 +66,7 @@ public class Usuario extends HttpServlet {
 
 			try {
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
-				request.setAttribute("usuarios", dao.listar());
+				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
 
 			} catch (SQLException e) {
@@ -96,38 +92,74 @@ public class Usuario extends HttpServlet {
 			
 			try {
 
-				if(id == null || id.isEmpty() && !dao.validarLogin(login)) {
-					request.setAttribute("msgLogin", "Login já cadastrado!");
-					System.out.println("Erro! Login - Já cadastrado");
-					
+				String msg = null;
+				boolean podeInserir = true;
+				
+//				** VALIDAÇÃO DE CAMPOS:
+//				Se algum desse campos estiver vazio não faz nada e mostra a mensagem de erro na tela {
+				if(login == null || login.isEmpty()) {
+					msg = "Login deve ser informado!";
+					podeInserir = false;
+				} 
+				
+				else if(senha == null || senha.isEmpty()) {
+					msg = "Senha deve ser informado!";
+					podeInserir = false;
 				}
 				
-				if(id == null || id.isEmpty() && !dao.validarSenha(senha)) {
-					request.setAttribute("msgSenha", "Senha já cadastrado!");
-					System.out.println("Erro! Senha - Já cadastrado");
-					
-				}
-			
-				if ((id == null || id.isEmpty()) && (dao.validarLogin(login) && dao.validarSenha(senha))) {
-					dao.salvar(usuario);
-					System.out.println("Salvando");
-					
-				} else if(id != null && !id.isEmpty()){
-					dao.atualizar(usuario);
-					System.out.println("Atualizando");
+				else if(nome == null || nome.isEmpty()) {
+					msg = "Nome deve ser informado!";
+					podeInserir = false;
 				}
 				
-				if(!(dao.validarLogin(login) && dao.validarSenha(senha))) {
-
+				else if(telefone == null || telefone.isEmpty()) {
+					msg = "Telefone deve ser informado!";
+					podeInserir = false;
+				}
+				
+//			}
+				
+//			    Senão faz a validação normal				
+				else if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {
+					msg = "Login já cadastrado!";
+					podeInserir = false;
+				}
+				
+//				Quando o usuário é novo e usa um login já cadastrado			
+				else if(id == null || id.isEmpty() && !daoUsuario.validarSenha(senha)) {
+					msg = "Senha já cadastrada!";
+					podeInserir = false;
+				}
+				
+//				Fim da estrutura de validação...
+				
+//				Se alguma das anteriores for verdade mostra a mensagem na tela
+				if(msg != null) {
+					request.setAttribute("msg", msg);
+				}
+				
+//				Se for mostrado alguma mensagem de erro na tela quer dizer que voce não pode salvar
+//				nem atualizar
+				else if(id == null || id.isEmpty() && daoUsuario.validarLogin(login) && podeInserir) {
+					daoUsuario.salvar(usuario);
+					System.out.println("Salvar");
+					
+				} 
+				
+				else if(id != null && !id.isEmpty() && podeInserir) {
+					daoUsuario.atualizar(usuario);
+					System.out.println("Atualizado");
+				}
+				
+			if(!podeInserir) {
 					request.setAttribute("user", usuario);
-					
 				}
-
-				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
-				request.setAttribute("usuarios", dao.listar());
+				
+				RequestDispatcher view = request.getRequestDispatcher("cadastro-usuario.jsp");
+				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
 
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 

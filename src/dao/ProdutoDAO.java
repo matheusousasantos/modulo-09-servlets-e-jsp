@@ -133,9 +133,9 @@ public class ProdutoDAO {
 	
 // Verifica se existe um determinado produto.
 	
-public boolean existeProduto(String nome) {
+public boolean validarNome(String nome) {
 		
-		String sql = "SELECT COUNT(1) qtd FROM usuario WHERE login = '" + nome + "'";
+		String sql = "SELECT COUNT(1) qtd FROM usuario WHERE nome = '" + nome + "'";
 		try {
 		PreparedStatement pmt = connection.prepareStatement(sql);
 		ResultSet rs = pmt.executeQuery();

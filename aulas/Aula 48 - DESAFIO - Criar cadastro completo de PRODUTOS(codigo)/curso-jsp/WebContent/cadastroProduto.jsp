@@ -40,7 +40,10 @@
 							value="${produto.valor}"></td>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="Salvar"> <input type="submit"  value="Cancelar" onclick="document.getElementById('formProduto').action = 'salvarProduto?acao=reset'"></td>
+						<td><input type="submit" value="Salvar">
+						<input type="submit"  value="Cancelar"
+						 onclick="document.getElementById('formProduto').action = 'salvarProduto?acao=reset'"></td>
+						 <td></td>
 					</tr>
 				</table>
 

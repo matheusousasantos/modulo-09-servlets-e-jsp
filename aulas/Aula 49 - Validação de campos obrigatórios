@@ -1,0 +1,22 @@
+Precisamos fazer uma validação para que são seja salvo um registro sem nenhuma informação
+
+É sempre bom fazer dos dois lados tando no back quando no font.
+
+Vamos começar pelo login:
+Se o login for vazio ou for nulo:
+
+	if(login == null || login.isEmpty()) {
+		
+		o atributo que mostrar a mensagem vai gerar um erro!
+		msg = "Login deve ser informado!";
+	
+		O nosso podeInserir vai virar false:
+		podeInserir = false;
+	} else if
+	
+O erro vai ser mostrado na tela.
+Se entra nessa rotina nem o validar senha e validar login serão executados!.
+
+Como o login os outros campos também precisam ser validados.
+será colocado um else nos outros métodos de validação.
+

@@ -138,7 +138,7 @@ public class UsuarioDAO {
 		}
 	}
 	
-public boolean validarLogin(String login) {
+public boolean validarLogin(String login) throws Exception{
 		
 		String sql = "SELECT COUNT(1) qtd FROM usuario WHERE login = '" +login+ "'";
 		try {
@@ -158,9 +158,9 @@ public boolean validarLogin(String login) {
 		return false;
 	}
 
-public boolean validarSenha(String senha) {
+public boolean validarSenha(String senha) throws Exception {
 	
-	String sql = "SELECT COUNT(1) qtd FROM usuario WHERE senha = '" +senha+ "'";
+	String sql = "SELECT COUNT(1) qtd FROM usuario WHERE senha = '" + senha + "'";
 	try {
 	PreparedStatement pmt = connection.prepareStatement(sql);
 	ResultSet rs = pmt.executeQuery();
