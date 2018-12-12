@@ -1,0 +1,43 @@
+Agora vamos fazer as validações no cliente, para não ser preciso fazer processamento do lado do servidor
+vamos fazer a alidação diretamente no formulário
+
+JavaScript - Podemos fazer qualquer regra de negócio do lado do servidor..
+
+precisamos usar a teg de script:
+	
+	<script type="text/javascript">
+	
+			function validarCampos(){
+				
+			}
+		</script>	
+
+Vamos invocar validarCampos() dentro do fomulário formUser usando o envento onsubmit.			
+
+onsubmit - antes do formulário for enviado pro servidor o que estiver no onsubmit será usado.
+se retornar for true ele envia senão não envia
+
+		function validarCampos(){
+			if(document.getElementById("login").value == ""){
+				alert('Informe o login');
+				return false;
+			} 
+		}
+Vou pegar o elemento pelo id e se ele estiver vazio vou retornar false e não será enviado para o 
+banco de dados
+
+Vamos fazer para todos os campos(Ids) - vamos usar o if else pra diminuir o processamento
+
+No final é preciso retorne true pois se todos os dados estiverem insridos o formulário será validado
+
+# Entendendo o método e retorno:
+
+onsubmit="return validarCampos() ? true : false;
+No onsubmit(antes de submeter) preciso definir o retorno se vai ser true o false
+return validarCampos() ? true - se esse retorno for verdadeiro.
+: false - senão for false.
+
+
+Dessa forma voce evita processamento do lado do servidor.
+
+

@@ -23,7 +23,7 @@
 		<h3 style="color: orange">${msg}</h3>
  
 
-		<form action="salvarUsuario" method="post" id="formUser">
+		<form action="salvarUsuario" method="post" id="formUser" onsubmit="return validarCampos()? true : false;">
 			<ul class="form-style-1">
 				<li>
 					<table>
@@ -109,6 +109,37 @@
 		</table>
 	</div>
 	<!-- container -->
+	
+	<!-- Comandos de JS -->
+	<script type="text/javascript">
+	
+		function validarCampos(){
+			
+			if(document.getElementById("login").value == ""){
+				alert('Informe o login');
+				return false;
+			} 
+			
+			else if(document.getElementById("senha").value == ""){
+				alert('Informe o senha');
+				return false;
+			} 
+			
+			else if(document.getElementById("nome").value == ""){
+				alert('Informe o nome');
+				return false;
+			} 
+			
+			else if(document.getElementById("telefone").value == ""){
+				alert('Informe o telefone');
+				return false;
+			} 
+			
+			return true;
+		}
+		
+	</script>
+	
 </body>
 </html>
 

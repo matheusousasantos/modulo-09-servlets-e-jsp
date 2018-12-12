@@ -129,7 +129,7 @@ public class ProdutoServlet extends HttpServlet {
 					request.setAttribute("produto", produto);
 				}
 
-				RequestDispatcher view = request.getRequestDispatcher("/cadastroProduto.jsp");
+				RequestDispatcher view = request.getRequestDispatcher("/cadastro-produto.jsp");
 				request.setAttribute("produtos", daoProduto.listar());
 				view.forward(request, response);
 
