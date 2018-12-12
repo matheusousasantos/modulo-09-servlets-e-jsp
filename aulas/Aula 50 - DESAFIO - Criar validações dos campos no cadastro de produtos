@@ -1,0 +1,4 @@
+Vamos validar os campos de produtos agora...
+
+Obs> Os campos valor e quantidade como são double será gerado um erro pois na hora de converter para
+double será pedido uma string que não existe.

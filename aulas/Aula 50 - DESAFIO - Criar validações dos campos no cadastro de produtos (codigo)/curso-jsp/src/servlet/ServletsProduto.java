@@ -10,71 +10,66 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Produto;
-import dao.ProdutoDAO;
+import dao.DaoProduto;
 
 @WebServlet("/salvarProduto")
-public class ProdutoServlet extends HttpServlet {
+public class ServletsProduto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	ProdutoDAO daoProduto = new ProdutoDAO();
+	private DaoProduto daoProduto = new DaoProduto();
 
-	public ProdutoServlet() {
+	public ServletsProduto() {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String acao = request.getParameter("acao");
-			String id = request.getParameter("id");
+			String produto = request.getParameter("produto");
 
-			if (acao.equalsIgnoreCase("deletar")) {
-				daoProduto.delete(id);
-
-				RequestDispatcher view = request.getRequestDispatcher("/cadastro-produto.jsp");
+			if (acao.equalsIgnoreCase("delete")) {
+				daoProduto.delete(produto);
+				RequestDispatcher view = request
+						.getRequestDispatcher("/cadastroProduto.jsp");
 				request.setAttribute("produtos", daoProduto.listar());
 				view.forward(request, response);
-
 			} else if (acao.equalsIgnoreCase("editar")) {
 
-				Produto p = daoProduto.consultar(id);
+				Produto beanCursoJsp = daoProduto.consultar(produto);
 
-				RequestDispatcher view = request.getRequestDispatcher("/cadastro-produto.jsp");
-				request.setAttribute("x", p);
+				RequestDispatcher view = request
+						.getRequestDispatcher("/cadastroProduto.jsp");
+				request.setAttribute("produto", beanCursoJsp);
 				view.forward(request, response);
-
 			} else if (acao.equalsIgnoreCase("listartodos")) {
 
-				RequestDispatcher view = request.getRequestDispatcher("/cadastro-produto.jsp");
+				RequestDispatcher view = request
+						.getRequestDispatcher("/cadastroProduto.jsp");
 				request.setAttribute("produtos", daoProduto.listar());
 				view.forward(request, response);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Erro no doGet");
-
 		}
-
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
 		String acao = request.getParameter("acao");
 
 		if (acao != null && acao.equalsIgnoreCase("reset")) {
 			try {
-
-				RequestDispatcher view = request.getRequestDispatcher("/cadastro-produto.jsp");
+				RequestDispatcher view = request
+						.getRequestDispatcher("/cadastroProduto.jsp");
 				request.setAttribute("produtos", daoProduto.listar());
 				view.forward(request, response);
 
 			} catch (Exception e) {
-				e.getStackTrace();
+				e.printStackTrace();
 			}
-
 		} else {
 
 			String id = request.getParameter("id");
@@ -99,7 +94,12 @@ public class ProdutoServlet extends HttpServlet {
 					msg = "Nome deve ser informado";
 					podeInserir = false;
 
-				} else if (id == null || id.isEmpty() && !daoProduto.validarNome(nome)) {
+				} else if (id == null || id.isEmpty()
+						&& !daoProduto.validarNome(nome)) {// QUANDO
+															// FDOR
+															// PRODUTO
+															// NOVO
+					msg = "Produto já existe com o mesmo nome!";
 					podeInserir = false;
 
 				}
@@ -117,7 +117,8 @@ public class ProdutoServlet extends HttpServlet {
 
 				if (msg != null) {
 					request.setAttribute("msg", msg);
-				} else if (id == null || id.isEmpty() && daoProduto.validarNome(nome) && podeInserir) {
+				} else if (id == null || id.isEmpty()
+						&& daoProduto.validarNome(nome) && podeInserir) {
 
 					daoProduto.salvar(produto);
 
@@ -129,7 +130,8 @@ public class ProdutoServlet extends HttpServlet {
 					request.setAttribute("produto", produto);
 				}
 
-				RequestDispatcher view = request.getRequestDispatcher("/cadastroProduto.jsp");
+				RequestDispatcher view = request
+						.getRequestDispatcher("/cadastroProduto.jsp");
 				request.setAttribute("produtos", daoProduto.listar());
 				view.forward(request, response);
 
@@ -138,5 +140,7 @@ public class ProdutoServlet extends HttpServlet {
 			}
 
 		}
+
 	}
+
 }
