@@ -15,7 +15,7 @@
 	<h1>Produtos</h1>
 	<h3>${msg}</h3>
 	
-	<form action="salvarProduto" method="post" id="formularioProdutos">
+	<form action="salvarProduto" method="post" id="formularioProdutos" onsubmit="return validarCampos() ? true : false">
 		<table>
 			<tr>
 				<td>ID</td>
@@ -79,6 +79,31 @@
 	
 	</table>
   </div>
+  
+  <script type="text/javaScript">
+	function validarCampos(){
+		
+		if(document.getElementById("nome").value == ""){
+			alert('Nome não informado!');
+			return false;
+		}
+		
+		if(document.getElementById("quantidade").value == ""){
+			alert('Quantidade não informado!');
+			return false;
+		}
+		
+		if(document.getElementById("valor").value == ""){
+			alert('Valor não informado!');
+			return false;
+		}
+		
+		return true;
+		
+	}
+  	
+
+  </script>
 
 </body>
 </html>
