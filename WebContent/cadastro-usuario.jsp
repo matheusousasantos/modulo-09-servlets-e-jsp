@@ -18,6 +18,9 @@
 
 </head>
 <body>
+	<a href="acessoliberado.jsp" style="text-decoration: none; color: black;">Inicio</a>
+	<a href="index.jsp" style="text-decoration: none; color: black;">Sair</a>
+	
 	<center>
 		<h1>Cadastro de Usuário</h1>
 		<h3 style="color: orange">${msg}</h3>

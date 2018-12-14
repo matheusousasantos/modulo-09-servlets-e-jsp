@@ -11,6 +11,8 @@
 <link rel="stylesheet" type="text/css" href="resourses/css/cadastro.css"/>
 </head>
 <body>
+	<a href="acessoliberado.jsp" style="text-decoration: none; color: black;">Inicio</a>
+	<a href="index.jsp" style="text-decoration: none; color: black;">Sair</a>
 	
 	<h1>Produtos</h1>
 	<h3>${msg}</h3>
