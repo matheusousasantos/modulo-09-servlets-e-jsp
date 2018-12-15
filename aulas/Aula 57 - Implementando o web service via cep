@@ -1,0 +1,95 @@
+Vamos usar o JQuery para fazer-mos essa validação de cep
+
+1 Ele vai ser implementada no cadastro de usuario.
+
+2 Vamos adicionar a tag Jquery pega do site https://viacep.com.br/exemplo/jquery/ no head.
+
+3 Precisamos ir no inicio do sistema > cadastro > Ctrl + F5(Atualizar) > Ctrl + Shift + J(Mostra o console), Nesse console
+não pode aparecer nenhum erro.
+
+4 Agora precisamos de um campo pra colocar o cep.
+
+5 vamos fazer o exemplo do cep do site.
+
+6 Vamos criar um evento de quando sair do campo de text(evento perdeu o foco)
+	onblur="alert('Perdeu o foco!')"
+	
+	Posso tambem criar uma função JS pra quando perder o foco.
+		onblur="consultaCep();"
+		
+	Já temos o campo JS feito no código - onde será feito a nova função função
+
+7 Quando perder o foco eu vou chamar o método consultarCep():
+	Pra pegar o cep eu vou usar o JQuery:
+	
+	function consultarCep() {
+			
+			var cep = $("#cep").val(); > Não esqueça o # pra ele procurar pelo ID
+			alert(cep);
+		}
+		
+ 8 Agora precisamos fazer a requisição AJAX
+	 Será feita no Web service - Vou prcisar de toda a consulta...
+	 //Consulta o webservice viacep.com.br/...
+	 
+	 daí vamos colocar dentro do método..
+	 
+9 Quando o método for chamado ele vai disparar essa consulta AJAX, ele sai do nosso sistema
+essa consulta pode ser em qualquer lugar do mundo:
+
+Consulta a url | o web service(/ws) | o cep passado( + cep + ) | o retorno em JSON(/json/) | ele vai retornar dentro da
+variável dados (function(dados))
+
+$.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+	alert(dados); <- Esse objeto é o JSON
+
+    if (!("erro" in dados)) {     <- Validação - Se não tiver erros faça:
+    	  
+    } 
+ 
+Esse dados vamos dizer que seja um objeto de cep com todos os seus atributos(logradouro, bairro, localidade, UF. ibge).
+Podemos acessar esses dados 
+
+
+Vamos mostrar agora eles nos campos:
+
+	if (!("erro" in dados)) {
+                	
+      $("#rua").val(dados.logradouro);
+      $("#bairro").val(dados.bairro);
+      $("#cidade").val(dados.localidade);
+      $("#estado").val(dados.uf);
+      $("#ibge").val(dados.ibge);
+                
+    }
+    
+    Se o cep não for encontrado precisamos limpar os campos:
+    
+    else {
+    
+      $(#cep).val('');
+      $("#rua").val('');
+      $("#bairro").val('');
+      $("#cidade").val('');
+      $("#estado").val('');
+      $("#ibge").val('');
+      
+      alert("CEP não existe!");
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+	

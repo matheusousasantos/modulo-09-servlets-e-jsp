@@ -1,0 +1,9 @@
+Agora vamos inserir os novos dados no banco de dados criando atributos na classe BeanCursoJsp.
+
+precisamos salvar os dados digitados na tela no objeto criado dentro da servlet.
+
+agora precisamos tratar a camada de persistência(DAO).
+
+Precisamos tambem voltar os dados para serem editados.Ex:
+
+	<td><input type="text" id="cep" name="cep" onblur="consultarCep();" value="${user.cep}"></td>

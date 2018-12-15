@@ -10,6 +10,11 @@
 <title>Cadastro de Usuario</title>
 <link href="resourses/css/cadastro.css" rel="stylesheet" type="text/css">
 
+<!-- Adicionando JQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
 	type="text/javascript"></script>
@@ -18,15 +23,17 @@
 
 </head>
 <body>
-	<a href="acessoliberado.jsp" style="text-decoration: none; color: black;">Inicio</a>
+	<a href="acessoliberado.jsp"
+		style="text-decoration: none; color: black;">Inicio</a>
 	<a href="index.jsp" style="text-decoration: none; color: black;">Sair</a>
-	
+
 	<center>
 		<h1>Cadastro de Usuário</h1>
 		<h3 style="color: orange">${msg}</h3>
- 
 
-		<form action="salvarUsuario" method="post" id="formUser" onsubmit="return validarCampos()? true : false;">
+
+		<form action="salvarUsuario" method="post" id="formUser"
+			onsubmit="return validarCampos()? true : false;">
 			<ul class="form-style-1">
 				<li>
 					<table>
@@ -58,11 +65,42 @@
 							<td><input type="text" id="nome" name="nome"
 								value="${user.nome}"></td>
 						</tr>
-						
+
 						<tr>
 							<td>Telefone:</td>
 							<td><input type="text" id="telefone" name="telefone"
 								value="${user.telefone}"></td>
+						</tr>
+
+						<tr>
+							<td>CEP:</td>
+							<td><input type="text" id="cep" name="cep"
+								onblur="consultarCep();" value="${user.cep}"></td>
+						</tr>
+						
+						<tr>
+							<td>Rua:</td>
+							<td><input type="text" id="rua" name="rua" value="${user.rua}"></td>
+						</tr>
+						
+						<tr>
+							<td>Bairro:</td>
+							<td><input type="text" id="bairro" name="bairro" value="${user.bairro}"></td>
+						</tr>
+						
+						<tr>
+							<td>Cidade:</td>
+							<td><input type="text" id="cidade" name="cidade" value="${user.cidade}"></td>
+						</tr>
+						
+						<tr>
+							<td>Estado:</td>
+							<td><input type="text" id="estado" name="estado" value="${user.estado}"></td>
+						</tr>
+						
+						<tr>
+							<td>IBGE:</td>
+							<td><input type="text" id="ibge" name="ibge" value="${user.ibge}"></td>
 						</tr>
 
 						<tr>
@@ -98,7 +136,7 @@
 					<td><c:out value="${user.login}"></c:out></td>
 					<td><c:out value="${user.nome}"></c:out></td>
 					<td><c:out value="${user.telefone}"></c:out></td>
-					
+
 
 					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
 							src="resourses/img/botao-excluir.jpg" alt="Excluir"
@@ -112,7 +150,7 @@
 		</table>
 	</div>
 	<!-- container -->
-	
+
 	<!-- Comandos de JS -->
 	<script type="text/javascript">
 	
@@ -141,8 +179,38 @@
 			return true;
 		}
 		
+		function consultarCep() {
+			
+			var cep = $("#cep").val();
+			
+			//Consulta o webservice viacep.com.br/
+            $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+            	
+                if (!("erro" in dados)) {
+                	
+                	 $("#rua").val(dados.logradouro);
+                     $("#bairro").val(dados.bairro);
+                     $("#cidade").val(dados.localidade);
+                     $("#estado").val(dados.uf);
+                     $("#ibge").val(dados.ibge);
+                
+                } 
+                
+                else {
+                	
+                	  $("#cep").val('');
+                      $("#rua").val('');
+                      $("#bairro").val('');
+                      $("#cidade").val('');
+                      $("#estado").val('');
+                      $("#ibge").val('');
+                      
+                      alert("CEP não existe!");
+                }
+            });
+		}
 	</script>
-	
+
 </body>
 </html>
 
