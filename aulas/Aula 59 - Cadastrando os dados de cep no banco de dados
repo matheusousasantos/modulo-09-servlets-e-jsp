@@ -1,9 +1,8 @@
-Agora vamos inserir os novos dados no banco de dados criando atributos na classe BeanCursoJsp.
+Agora vamos criar as tabelas no banco de dados.
 
-precisamos salvar os dados digitados na tela no objeto criado dentro da servlet.
+pgAdmin
 
-agora precisamos tratar a camada de persistência(DAO).
+Adicionar os campos na tabela.
+ALTER TABLE usuario ADD COLUMN cep character varying(200);
 
-Precisamos tambem voltar os dados para serem editados.Ex:
-
-	<td><input type="text" id="cep" name="cep" onblur="consultarCep();" value="${user.cep}"></td>
+Precisamos mudar todas as queries do DAO que ainda usam as strings sem os atributos novos(de cep).
