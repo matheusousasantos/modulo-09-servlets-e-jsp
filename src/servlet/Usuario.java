@@ -156,7 +156,7 @@ public class Usuario extends HttpServlet {
 //				nem atualizar
 				else if(id == null || id.isEmpty() && daoUsuario.validarLogin(login) && podeInserir) {
 					daoUsuario.salvar(usuario);
-					System.out.println("Salvar");
+					
 					
 				} 
 				
@@ -171,6 +171,7 @@ public class Usuario extends HttpServlet {
 				
 				RequestDispatcher view = request.getRequestDispatcher("cadastro-usuario.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
+				request.setAttribute("msg", "Salvo com sucesso!");
 				view.forward(request, response);
 
 			} catch (Exception e) {

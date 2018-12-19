@@ -1,0 +1,8 @@
+Vamos arrumar o formulário:
+
+Vamos mostrar uma mensagem pra quando salvar um usuario:
+
+			RequestDispatcher view = request.getRequestDispatcher("cadastro-usuario.jsp");
+				request.setAttribute("usuarios", daoUsuario.listar());
+				request.setAttribute("msg", "Salvo com sucesso!");
+				view.forward(request, response);

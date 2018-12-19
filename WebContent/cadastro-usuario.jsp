@@ -43,6 +43,10 @@
 							<!-- célula     Id: somente leitura-->
 							<td><input type="text" id="id" readonly="readonly" name="id"
 								value="${user.id}" class="field-long"></td>
+
+							<td>CEP:</td>
+							<td><input type="text" id="cep" name="cep"
+								onblur="consultarCep();" value="${user.cep}"></td>
 						</tr>
 
 						<tr>
@@ -52,55 +56,47 @@
 							<td><input type="text" id="login" name="login"
 								value="${user.login}"></td>
 							<!-- Mostra na hora que formos editar -->
+
+							<td>Rua:</td>
+							<td><input type="text" id="rua" name="rua"
+								value="${user.rua}"></td>
+
 						</tr>
 
 						<tr>
 							<td>Senha:</td>
 							<td><input type="password" id="senha" name="senha"
 								value="${user.senha}"></td>
+
+							<td>Bairro:</td>
+							<td><input type="text" id="bairro" name="bairro"
+								value="${user.bairro}"></td>
 						</tr>
 
 						<tr>
 							<td>Nome:</td>
 							<td><input type="text" id="nome" name="nome"
 								value="${user.nome}"></td>
+
+							<td>Cidade:</td>
+							<td><input type="text" id="cidade" name="cidade"
+								value="${user.cidade}"></td>
 						</tr>
 
 						<tr>
 							<td>Telefone:</td>
 							<td><input type="text" id="telefone" name="telefone"
 								value="${user.telefone}"></td>
+
+							<td>Estado:</td>
+							<td><input type="text" id="estado" name="estado"
+								value="${user.estado}"></td>
 						</tr>
 
 						<tr>
-							<td>CEP:</td>
-							<td><input type="text" id="cep" name="cep"
-								onblur="consultarCep();" value="${user.cep}"></td>
-						</tr>
-						
-						<tr>
-							<td>Rua:</td>
-							<td><input type="text" id="rua" name="rua" value="${user.rua}"></td>
-						</tr>
-						
-						<tr>
-							<td>Bairro:</td>
-							<td><input type="text" id="bairro" name="bairro" value="${user.bairro}"></td>
-						</tr>
-						
-						<tr>
-							<td>Cidade:</td>
-							<td><input type="text" id="cidade" name="cidade" value="${user.cidade}"></td>
-						</tr>
-						
-						<tr>
-							<td>Estado:</td>
-							<td><input type="text" id="estado" name="estado" value="${user.estado}"></td>
-						</tr>
-						
-						<tr>
 							<td>IBGE:</td>
-							<td><input type="text" id="ibge" name="ibge" value="${user.ibge}"></td>
+							<td><input type="text" id="ibge" name="ibge"
+								value="${user.ibge}"></td>
 						</tr>
 
 						<tr>
@@ -153,61 +149,61 @@
 
 	<!-- Comandos de JS -->
 	<script type="text/javascript">
-	
-		function validarCampos(){
-			
-			if(document.getElementById("login").value == ""){
+		function validarCampos() {
+
+			if (document.getElementById("login").value == "") {
 				alert('Informe o login');
 				return false;
-			} 
-			
-			else if(document.getElementById("senha").value == ""){
+			}
+
+			else if (document.getElementById("senha").value == "") {
 				alert('Informe o senha');
 				return false;
-			} 
-			
-			else if(document.getElementById("nome").value == ""){
+			}
+
+			else if (document.getElementById("nome").value == "") {
 				alert('Informe o nome');
 				return false;
-			} 
-			
-			else if(document.getElementById("telefone").value == ""){
+			}
+
+			else if (document.getElementById("telefone").value == "") {
 				alert('Informe o telefone');
 				return false;
-			} 
-			
+			}
+
 			return true;
 		}
-		
+
 		function consultarCep() {
-			
+
 			var cep = $("#cep").val();
-			
+
 			//Consulta o webservice viacep.com.br/
-            $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
-            	
-                if (!("erro" in dados)) {
-                	
-                	 $("#rua").val(dados.logradouro);
-                     $("#bairro").val(dados.bairro);
-                     $("#cidade").val(dados.localidade);
-                     $("#estado").val(dados.uf);
-                     $("#ibge").val(dados.ibge);
-                
-                } 
-                
-                else {
-                	
-                	  $("#cep").val('');
-                      $("#rua").val('');
-                      $("#bairro").val('');
-                      $("#cidade").val('');
-                      $("#estado").val('');
-                      $("#ibge").val('');
-                      
-                      alert("CEP não existe!");
-                }
-            });
+			$.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?",
+					function(dados) {
+
+						if (!("erro" in dados)) {
+
+							$("#rua").val(dados.logradouro);
+							$("#bairro").val(dados.bairro);
+							$("#cidade").val(dados.localidade);
+							$("#estado").val(dados.uf);
+							$("#ibge").val(dados.ibge);
+
+						}
+
+						else {
+
+							$("#cep").val('');
+							$("#rua").val('');
+							$("#bairro").val('');
+							$("#cidade").val('');
+							$("#estado").val('');
+							$("#ibge").val('');
+
+							alert("CEP não existe!");
+						}
+					});
 		}
 	</script>
 
