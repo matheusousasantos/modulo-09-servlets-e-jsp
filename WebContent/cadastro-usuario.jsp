@@ -46,7 +46,8 @@
 
 							<td>CEP:</td>
 							<td><input type="text" id="cep" name="cep"
-								onblur="consultarCep();" value="${user.cep}"></td>
+								onblur="consultarCep();" value="${user.cep}" 
+								placeholder="Informe um CEP válido"></td>
 						</tr>
 
 						<tr>
@@ -76,11 +77,11 @@
 						<tr>
 							<td>Nome:</td>
 							<td><input type="text" id="nome" name="nome"
-								value="${user.nome}"></td>
+								value="${user.nome}" placeholder="Informe o nome do Usuário"></td>
 
 							<td>Cidade:</td>
 							<td><input type="text" id="cidade" name="cidade"
-								value="${user.cidade}"></td>
+								value="${user.cidade}" placeholder="Informe o nome da Cidade"></td>
 						</tr>
 
 						<tr>
@@ -125,6 +126,7 @@
 				<th>TELEFONE</th>
 				<th>EXCLUIR</th>
 				<th>EDITAR</th>
+				<th>FONES</th>
 			</tr>
 			<c:forEach items="${usuarios}" var="user">
 				<tr>
@@ -140,6 +142,10 @@
 
 					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img
 							alt="Editar" src="resourses/img/botao-editar.png" title="editar"
+							width="20px"></a></td>
+							
+					<td><a href="salvarTelefones?acao=addFone&user=${user.id}"><img
+							alt="Telefones" src="resourses/img/phone.png" title="Telefones"
 							width="20px"></a></td>
 				</tr>
 			</c:forEach>

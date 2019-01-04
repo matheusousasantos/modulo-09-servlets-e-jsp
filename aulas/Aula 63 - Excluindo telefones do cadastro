@@ -1,0 +1,185 @@
+Vamos criar a tabela telefone no banco de dados
+
+1 - vamos criar uma sequÃªencia pra esse telefone
+
+	CREATE SEQUENCE fonesequence
+	  INCREMENT 1
+	  MINVALUE 1
+	  MAXVALUE 9223372036854775807
+	  START 1
+	  CACHE 1;
+	ALTER TABLE fonesequence
+	  OWNER TO postgres;
+
+2 - Criar uma tabela telefone com o atributo usuario
+
+	 CREATE TABLE public.telefone
+	(
+	  id bigint NOT NULL DEFAULT nextval('fonesequence'::regclass),
+	  numero character varying(255),
+	  tipo character varying(255),
+	  usuario bigint NOT NULL,
+	  CONSTRAINT fone_key PRIMARY KEY (id)
+	)
+	WITH (
+	  OIDS=FALSE
+	);
+	ALTER TABLE public.telefone
+	  OWNER TO postgres;
+
+3 - Criar a classe de telefone no java
+
+	public class Telefone {
+
+	private Long id;
+	private String numero;
+	private String tipo;
+	private Long usuario; - (Obs: sÃ³ Ã© levado em consideraÃ§Ã£o o id do usuÃ¡rio nÃ£o o objeto em si).
+
+4 - DAO
+	
+	public void salvar(Telefone telefone) {
+		String sql = "INSERT INTO Telefone(numero, tipo, usuario) VALUES (?,?,?)";
+		try {
+			PreparedStatement insert = connection.prepareStatement(sql);
+			insert.setString(1, telefone.getNumero());
+			insert.setString(2, telefone.getTipo());
+			insert.setLong(3, telefone.getUsuario());
+
+			insert.execute();
+			connection.commit();
+
+		} catch (SQLException e) {
+			try {
+				e.printStackTrace();
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+	}
+
+	public void delete(String id) {
+
+		String sql = "DELETE FROM Telefone WHERE id = '" + id + "'";
+		try {
+			PreparedStatement pmt = connection.prepareStatement(sql);
+			pmt.execute();
+
+			connection.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+	}
+
+	public List<Telefone> listar() throws SQLException {
+		List<Telefone> lista = new ArrayList<>();
+
+		String sql = "SELECT * FROM Telefone WHERE id =" + id;
+
+		PreparedStatement list = connection.prepareStatement(sql);
+		ResultSet rs = list.executeQuery();
+
+		while (rs.next()) {
+
+			Telefone obj = new Telefone();
+			obj.setId(rs.getLong("id"));
+			obj.setNumero(rs.getString("numero"));
+			obj.setTipo(rs.getString("tipo"));
+			obj.setUsuario(rs.getLong("usuario"));
+			lista.add(obj);
+		}
+
+	Obs > No listar eu preciso passar o codigo do usuario pra ser listado somente os telefones daquele
+	usuário:
+	
+	public List<Telefone> listar(Long usuario) throws SQLException {
+		List<Telefone> lista = new ArrayList<>();
+
+		String sql = "SELECT * FROM Telefone WHERE usuario =" + usuario;
+	
+
+5 - Agora podemos salvar nossos telefones com o servlet
+
+		BeanCursoJsp beanCursoJsp = (BeanCursoJsp) request.getSession().getAttribute("usuarioEscolhido");
+
+		String numero = request.getParameter("numero");
+		String tipo = request.getParameter("tipo");
+		
+		Telefone t = new Telefone();
+		t.setNumero(numero);
+		t.setTipo(tipo);
+		t.setUsuario(beanCursoJsp.getId());
+
+		telefoneDAO.salvar(t);
+
+6 - Mostrando na tela o telefone e os outros salvos:
+		
+		BeanCursoJsp beanCursoJsp = (BeanCursoJsp) request.getSession().getAttribute("usuarioEscolhido");
+		String numero = request.getParameter("numero");
+		String tipo = request.getParameter("tipo");
+			
+		Telefone t = new Telefone();
+		t.setNumero(numero);
+		t.setTipo(tipo);
+		t.setUsuario(beanCursoJsp.getId());
+			
+		telefoneDAO.salvar(t);
+			
+		RequestDispatcher view = request.getRequestDispatcher("/telefones.jsp");
+		request.setAttribute("telefones", telefoneDAO.listar(beanCursoJsp.getId()));
+		view.forward(request, response);		
+
+7 - Precisamos setar os atributos porque ele vai retornar pra mesma tela e se quizermos adicionar mais um
+telefone ele já vai ficar tudo pronto
+
+Entendimento > Asessão só irá funcionar dentro do método Get sendo preciso abrir-lo novamente no Post
+Dentro dos dois métodos(criados dentro do método) existem Objetos do tipo Usuario que precisam ser 
+usados na sessão
+
+8 - Excluindo telefones
+Primeiro temos que saber qual será a ação do usuario - se for pra add um telefone ou pra excluir um
+
+	telefone.jsp:
+	<td><a href="salvarTelefones?acao=deleteFone&foneId=${phone.id}">...
+
+	cadastro-usuario.jsp:
+	<td><a href="salvarTelefones?acao=addFone&user=${user.id}">...
+	
+		if(acao.equalsIgnoreCase("deleteFone")) {
+				
+				String FoneId = request.getParameter("foneId");	
+				telefoneDAO.delete(FoneId);	
+				
+				BeanCursoJsp beanCursoJsp = (BeanCursoJsp) request.getSession().getAttribute("usuarioEscolhido");
+				
+				RequestDispatcher view = request.getRequestDispatcher("/telefones.jsp");
+				request.setAttribute("telefones", telefoneDAO.listar(beanCursoJsp.getId()));
+				request.setAttribute("msg", "Removido com sucesso!");
+				view.forward(request, response);
+			}
+
+		if(acao.equalsIgnoreCase("addFone")) {
+				
+				String user = request.getParameter("user");
+				
+				BeanCursoJsp u = usuarioDAO.consultar(user);
+				request.getSession().setAttribute("usuarioEscolhido", u);
+				request.setAttribute("usuarioEscolhido", u);
+				
+				RequestDispatcher view = request.getRequestDispatcher("/telefones.jsp");
+				request.setAttribute("telefones", telefoneDAO.listar(u.getId()));
+				request.setAttribute("msg", "Salvo com sucesso!");
+				view.forward(request, response);
+				
+			}
+
+Todos os dois casos levam para a servlet de telefones

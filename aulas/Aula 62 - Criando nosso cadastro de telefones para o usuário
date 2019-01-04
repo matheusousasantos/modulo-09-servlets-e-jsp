@@ -1,0 +1,118 @@
+Vamos realizar a cardinalidade ManyToOne..
+Vamos fazer relacionamento entre tabelas, cada tecnologia existe uma forma de desenvolver
+Cada usuario tem vários telefones
+
+Vou criar no cadastro uma outra célula com link para telefones.
+
+<td>
+	<a href="salvarTelefones?user=${user.id}"><img alt="Telefones" src="resourses/img/phone.png"
+	title="Telefones" width="20px">
+	</a>
+</td>
+
+Agora precisamos fazer um outra servlet pra salvar os dados dos telefones
+
+Precisamos passar pra Servlet Telefone os usuários:
+	href="salvarTelefones?user=${user.id}">
+			(mapeamento)    (parâmetro)
+			
+O user vai ser passado na requisição, precisamos pegar esse valor:
+user = request.getParameter("user");
+
+Pronto. Consegui captar o usuário porém não sigunifica que está sendo controlado pela nossa servlet,
+ele vão fica em memória..
+
+Para podermos guardar isso no nosso sistema, pra ficarmos com a tela aberta, podermos cadastrar telefones
+e termos a identificação de usuário precisamos colocar esse código de usuário na SESSAO. 
+
+Obs > Cada sessão é unica pra cada pessoa que está manipulando o sistema
+
+10 pessoas usando o sistemas são 10 sessões que o java abra automático... Voce precisa ententer essa parte
+pois é essencial.
+
+Se uma atendente está cadastrando telefones de um determonado usuário o seu código deverá ser guardado para ter
+uma referência, se ela escolher outro usuário esse código deverá ser mudado na sessão.
+
+Guardando a sessão para quando eu estiver gravando telefones eu não perder essa referência de quem é o 
+pai dos telefones, quem é o usuario.
+
+	request.getSession().setAttribute("user", user);
+Vou criar uma sessão passando um atributo que vem da tela.
+
+Entendimento:
+String user = request.getParameter("user");    - Capturei o usuario que eu quero trabalhar atraves do ID.
+BeanCursoJsp u = usuarioDAO.consultar(user);   - Carrega o usuário
+request.getSession().setAttribute("usuarioEscolhido", u); - Aponta pra um atributo da tela
+Coloquei ele dentro de uma sessão.
+
+Agora preciso da tela de telefones
+
+Para ser mais rápido posso usar a tela de cadastro-usuario.jsp como porém, como os dados que são esperados
+na tela não são os que vem realmente do servlet será gerado um erro... A tela telefones.jsp não recebe nada
+como atributo > TelefonesServlet:
+					RequestDispatcher view = request.getRequestDispatcher("/telefones.jsp");
+					view.forward(request, response);
+	
+Na tela telefones.jsp precisamos saber de qual usuarios(user) estamos cadastando os os telefones
+então vamos mostrar esse usuário..
+	request.setAttribute("usuarioEscolhido", user);
+	
+Onde ele será recuperado lá na tela telefones.jsp
+
+	<td>Usuário:</td>
+	<td><input type="text" id="id" readonly="readonly" 
+	name="id" value="${UsuarioEscolhido}"/>
+	
+Posso também mostrar o nome do usuário buscando no banco de dados salvando o objeto inteiro:
+
+TelefonesServlet.java
+
+		String user = request.getParameter("user");
+		
+		BeanCursoJsp u = usuarioDAO.consultar(user);
+		
+		request.getSession().setAttribute("user", u);
+		
+		RequestDispatcher view = request.getRequestDispatcher("/telefones.jsp");
+		request.setAttribute("telefones", "");
+		request.setAttribute("usuarioEscolhido", u);
+		request.setAttribute("msg", "Salvo com sucesso!");
+		view.forward(request, response);
+
+telefones.jsp
+
+		<td>Usuário:</td>
+		<!-- célula     Id: somente leitura-->
+		<td><input type="text" id="id" readonly="readonly" 
+		name="id" value="${usuarioEscolhido.nome}"/></td>
+		
+Agora precisamos definir o tipo de telefone:
+Será colocado dentro de um select
+
+	<select	id="tipo" name="tipo">
+		<option>Casa</option>
+		<option>Contato</option>
+		<option>Celular</option>
+	</select>
+
+Segundo precisamos pegar o número e o tipo do número:
+	
+	que o seu tratamento será no método doPost pois vem de um formulário
+	Assim como o número e o tipo preciso recuperar o usuario que vem de uma sessão.
+	
+	BeanCursoJsp beanCursoJsp = (BeanCursoJsp) request.getSession().getAttribute("usuarioEscolhido");
+	String numero = request.getParameter("numero");
+	String tipo = request.getParameter("tipo");
+
+Com isso eu tenho os valores do telefone que eu quero cadastrar assim como o usuário desse dono desse telefone
+
+
+
+
+
+
+
+
+
+
+
