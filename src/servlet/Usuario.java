@@ -109,8 +109,6 @@ public class Usuario extends HttpServlet {
 				String msg = null;
 				boolean podeInserir = true;
 				
-//				** VALIDAÇÃO DE CAMPOS:
-//				Se algum desse campos estiver vazio não faz nada e mostra a mensagem de erro na tela {
 				if(login == null || login.isEmpty()) {
 					msg = "Login deve ser informado!";
 					podeInserir = false;
@@ -131,29 +129,22 @@ public class Usuario extends HttpServlet {
 					podeInserir = false;
 				}
 				
-//			}
-				
-//			    Senão faz a validação normal				
+			
 				else if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {
 					msg = "Login já cadastrado!";
 					podeInserir = false;
 				}
-				
-//				Quando o usuário é novo e usa um login já cadastrado			
+						
 				else if(id == null || id.isEmpty() && !daoUsuario.validarSenha(senha)) {
 					msg = "Senha já cadastrada!";
 					podeInserir = false;
 				}
-				
-//				Fim da estrutura de validação...
-				
-//				Se alguma das anteriores for verdade mostra a mensagem na tela
+
 				if(msg != null) {
 					request.setAttribute("msg", msg);
 				}
 				
-//				Se for mostrado alguma mensagem de erro na tela quer dizer que voce não pode salvar
-//				nem atualizar
+
 				else if(id == null || id.isEmpty() && daoUsuario.validarLogin(login) && podeInserir) {
 					daoUsuario.salvar(usuario);
 					

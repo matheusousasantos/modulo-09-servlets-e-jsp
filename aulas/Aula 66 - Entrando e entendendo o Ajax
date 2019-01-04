@@ -1,0 +1,24 @@
+O que é AJAX?
+
+AJAX significa Asynchronous JavaScript e XML. Em poucas palavras, é o uso do objeto XMLHttpRequest 
+para se comunicar com os scripts do lado do servidor. Ele pode enviar bem como receber informações 
+em uma variedade de formatos, incluindo JSON, XML, HTML, e até mesmo arquivos de texto. Porém a 
+característica mais atraente do AJAX, é a sua natureza "assíncrona", o que significa que ele pode 
+fazer tudo isso sem a necessidade de atualizar a página. Isso permite a você atualizar partes de 
+uma página com base em eventos do usuário.
+
+Os dois recursos em questão que você pode utilizar são:
+
+    Fazer requisições para o servidor sem recarregar a página
+    Receber e trabalhar com dados do servidor
+
+Explicação Professor:
+
+1 - Ajax - Vamos supor que ao clicar no botão cadastrar eu não quero carregar a página novamente, fazendo
+	uma requisição por debaixo dos panos e recarregar só um pedaço da tela...O ajax faz uma requisição 
+	java script por debaixo dos panos
+	
+2 - Quando eu envio um formulário eu não preciso enviar a página inteira somente os parâmetros
+
+3 - Intenção do Ajax: Fazer um pedido(requisição) o lado do servidor, retornar o resultado recarregar um pedaço
+	de página ou dar um alerta pro usuário
