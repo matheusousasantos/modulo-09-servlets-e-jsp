@@ -33,7 +33,7 @@
 
 
 		<form action="salvarUsuario" method="post" id="formUser"
-			onsubmit="return validarCampos()? true : false;">
+			onsubmit="return validarCampos()? true : false;" enctype="multipart/form-data">
 			<ul class="form-style-1">
 				<li>
 					<table>
@@ -96,8 +96,14 @@
 
 						<tr>
 							<td>IBGE:</td>
-							<td><input type="text" id="ibge" name="ibge"
-								value="${user.ibge}"></td>
+							<td><input type="text" id="ibge" name="ibge" value="${user.ibge}"></td>
+						</tr>
+						
+						<tr>
+						
+							<td>Foto:</td>
+							<td><input type="file" name="foto" value="Foto"></td>
+				
 						</tr>
 
 						<tr>

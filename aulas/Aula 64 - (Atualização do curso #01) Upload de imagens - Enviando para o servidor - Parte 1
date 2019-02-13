@@ -1,0 +1,48 @@
+Colocando uma foto e pdf e gravar no banco de dados.
+
+1 - Primeiro precisamos do campo pra fazermos o upload, o própio html tem uma teg especifica.
+	file - tem um botão de selecionar arquivo.
+
+2 - Precisamos definir dentro do formulário um termo para que possamos enviar imagens e pdf:
+	enctype="multipart/form-data"
+	
+3 - Agora vamos tratar dentro do Servlet.
+	É comum colocarmos dentro do Try catch pra não ter nenhum erro.
+	
+    precisamos de de dois jars pra trabalhar com upload de imagens
+    
+    commons-fileupload-1.3.2
+    commons-io-2.5
+    
+4 - Precisamos indentificar se o formulário é do tipo multipart/form-data
+	ServletFileUpload - commons
+	
+	.isMultipartContent(request). - Validar se esse formulário é de upload.
+	
+5 - Como vou ter mais de um(foto e pdf) vou precisar de uma lista.
+
+	Vou precisar varrer a lista e identificar a foto ou o pdf.
+	Obs: todos os itens que vem da requisição são considerados imagens, precisamos pegar a imagem em si.
+	
+	ServletFileUpload - Própia pra formulários que vem da requisição.
+	precisamos recuperar a lista de todos os atributos que vem do formulário
+	Quando enviamos via formulário vão ser armazenados temporariamente dentro do servidor
+	precisamos recupera-los.
+	
+	List<FileItem> fileIntens = 
+	new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+	
+6 - Vou percorrer esse array(fileIntens) e preciso identificar um tributo que sejá foto
+	if(fileItem.getFieldName().equals("foto"));
+
+7 - precisa ser convertido pra de by tpara base64:
+
+	String foto = new Base64().encodeBase64String(fileItem.get());
+	
+	
+	
+	
+	
+	
+	
+	

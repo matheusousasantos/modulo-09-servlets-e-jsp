@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+import org.apache.tomcat.util.codec.binary.Base64;
 
 import beans.BeanCursoJsp;
 import dao.UsuarioDAO;
@@ -105,6 +112,22 @@ public class Usuario extends HttpServlet {
 			usuario.setIbge(ibge);
 			
 			try {
+				
+				/* File upload de imagens e pdf */
+				
+				if(ServletFileUpload.isMultipartContent(request)) {
+					
+					List<FileItem> fileIntens = 
+							new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+					
+					for (FileItem fileItem : fileIntens) {
+						if(fileItem.getFieldName().equals("foto")) {
+							String foto = new Base64().encodeBase64String(fileItem.get());
+							System.out.println();
+						}
+					}
+					
+				}
 
 				String msg = null;
 				boolean podeInserir = true;
