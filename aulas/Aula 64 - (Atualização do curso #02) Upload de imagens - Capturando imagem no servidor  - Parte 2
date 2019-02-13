@@ -1,0 +1,16 @@
+Base 64 - codificação pra tranferência de arquivo.
+
+1 - Sempre vem em arquivos d base 64 = ;base64,
+
+2 - Precisamos gravar sempre no banco de dados o arquivo e o tipo dele:
+
+	tipo: image/png
+	arquivo: o que vem depois do base64,
+	
+	então precisamos de dois atributos novos: um pro arquivo em si e outro pro seu tipo(recuperado com uso do content type).
+	
+	String fotoBase64 = new Base64().encodeBase64String(fileItem.get());
+	String contentType = fileItem.getContentType();
+	
+3 - No banco de dados vamos precisar criar um novo atibuto que será do tipo text:
+	... fotobase64 text

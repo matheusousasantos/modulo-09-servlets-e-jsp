@@ -122,8 +122,11 @@ public class Usuario extends HttpServlet {
 					
 					for (FileItem fileItem : fileIntens) {
 						if(fileItem.getFieldName().equals("foto")) {
-							String foto = new Base64().encodeBase64String(fileItem.get());
-							System.out.println();
+							
+							String fotoBase64 = new Base64().encodeBase64String(fileItem.get());
+							String contentType = fileItem.getContentType();
+							usuario.setFotoBase64(fotoBase64);
+							usuario.setContentType(contentType);
 						}
 					}
 					
