@@ -37,6 +37,7 @@ public class Usuario extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		try {
 			String acao = request.getParameter("acao");
 			String user = request.getParameter("user");
@@ -62,7 +63,16 @@ public class Usuario extends HttpServlet {
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
 
+			
+			} else if(acao.equalsIgnoreCase("download")) {
+				
+				BeanCursoJsp obj = daoUsuario.consultar(user);
+				
+				if(obj != null) {											/*Nome qualquer - imagem que estamos baixando*/
+					response.setHeader("Content-Disposition", "attachament;arquivo." + obj.getContentType().split("\\/")[1]);
+				}
 			}
+				
 
 		} catch (Exception e) {
 			e.printStackTrace();

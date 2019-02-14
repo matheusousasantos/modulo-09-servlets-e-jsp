@@ -124,6 +124,8 @@ public class UsuarioDAO {
 				obj.setCidade(rs.getString("cidade"));
 				obj.setEstado(rs.getString("estado"));
 				obj.setIbge(rs.getString("ibge"));
+				obj.setFotoBase64(rs.getString("fotobase64"));
+				obj.setContentType(rs.getString("contenttype"));
 				
 				return obj;
 			}

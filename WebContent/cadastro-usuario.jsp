@@ -127,9 +127,8 @@
 			<tr>
 				<!-- Linha de título da tabela -->
 				<th>#</th>
-				<th>LOGIN</th>
+				<th>FOTO</th>
 				<th>NOME</th>
-				<th>TELEFONE</th>
 				<th>EXCLUIR</th>
 				<th>EDITAR</th>
 				<th>FONES</th>
@@ -137,12 +136,11 @@
 			<c:forEach items="${usuarios}" var="user">
 				<tr>
 					<td><c:out value="${user.id}"></c:out></td>
-					<td><c:out value="${user.login}"></c:out></td>
-					<td><img src='<c:out value="${user.tempFotoUser}"></c:out>' alt="Imagem User" title="Imagem User"
-					width="50px" height="50px"></td>
+					
+					<td><a href="salvarUsuario?acao=download&user=${user.id}"><img src='<c:out value="${user.tempFotoUser}"></c:out>' alt="Imagem User" title="Imagem User"
+					width="50px" height="50px"></a></td>
+					
 					<td><c:out value="${user.nome}"></c:out></td>
-					<td><c:out value="${user.telefone}"></c:out></td>
-
 
 					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
 							src="resourses/img/botao-excluir.jpg" alt="Excluir"

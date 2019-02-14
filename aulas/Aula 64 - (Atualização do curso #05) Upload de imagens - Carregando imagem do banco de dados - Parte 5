@@ -1,0 +1,63 @@
+Quando clicar-mos na imagem ela será baixada.
+	
+	Vamos criar um link na imagem para o servlet Usuario com ação download:
+	
+	<td>
+		<a href="salvarUsuario?acao=download&user=${user.id}">
+		<img src='<c:out value="${user.tempFotoUser}">
+		</c:out>' alt="Imagem User" title="Imagem User" width="50px" height="50px">
+		</a>
+	</td>
+	
+	Obs: Precisamos do usuario para podermos deletar nele a foto, ele sempre será a refência.
+	
+2 - No Sevlet:
+	
+	else if(acao.equalsIgnoreCase("download")) {
+				
+	BeanCursoJsp obj = daoUsuario.consultar(user);
+				
+	  if(obj != null) {
+					
+	  }
+	}
+	
+	 
+
+3 - Preparando a resposta:
+
+	response - existem alguns parametros que precisamos passar na resposta pra ser feito o download da forma certa.
+	
+	Quando eu clico em uma imagem é sempre redirecionado pra URL
+	No nosso caso eu quero que baixa diretamente.
+	
+	response.setHeader - reposta setada na URL.
+	arquivo - imagem, pode ser um nome qualquer.
+	
+	a extenção precisa ser dinâmico, não sabemos a extenção da foto salva no banco de dados.
+	Sempre que tem uma barra que divide os termos(arquivo e exenção), ex: imagem/png, podemos usar um raplace que trasforma
+	em um vetor [0,1] onde: 0 é o arquivo e 1 é a extenção
+	
+	
+	response.setHeader("Content-Disposition", "attachament;arquivo." + obj.getContentType().split("\\/")[1]);
+	
+	Nesse caso pego o que está na posição 1 que será a extenção.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
