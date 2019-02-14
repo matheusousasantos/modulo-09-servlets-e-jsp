@@ -1,0 +1,55 @@
+Como já feito anteriormente com o enctype="multipart/form-data é mandando somente os dados do tipo imagem ou pdf
+pro servidor não sendo enviados os de texto.
+
+1 - Precisamos de uma anotação que faça as duas coisas e de uma vez só.
+	@MultipartConfig - Passa a entender os dois tipos de dados.
+	
+	
+2 - Agora vamos tratar essa parte: if(ServletFileUpload.isMultipartContent(request)) {
+	
+	Se fosse um formulário somente de imagens usariamos esse mesmo código porém existe o texto.
+	
+	
+3 - Mão na massa:
+
+	Part imagemFoto = request.getPart("foto");
+	
+	Part - Pega a imagem
+	equest.getPart("foto") - Pega foto através do seu name;
+	
+4 - Temos que levar em consideração que não podemos mudar o banco de dados e sim a forma de acessar os dados:
+	a imagem ela em como um byte eu preciso de um array de byte pra depois converter pra base 64 como estavamos
+	fazendo.
+	
+	Eu tenho um inputStream que posso converter para um array de bytes e depois pra base 64 através de um método
+	que "preciso estudar":
+	
+	private byte[] converteStreamParaByte(InputStream imagem) throws Exception{
+	
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int reads = imagem.read();
+		while(reads != -1) {
+			baos.write(reads);
+			reads = imagem.read();
+		}
+		return baos.toByteArray();
+	}
+	
+	Converte a entrada de fluxo de dados(InputStream imagem) da imagem para um array de byte(byte[])
+	
+5 - A parte de gravação no banco fica assim(também preciso estudar mais):
+
+	if(ServletFileUpload.isMultipartContent(request)) {
+					
+		Part imagemFoto = request.getPart("foto");	
+		String fotoBase64 = new Base64().encodeBase64String(converteStreamParaByte(imagemFoto.getInputStream()));
+		usuario.setFotoBase64(fotoBase64);
+		usuario.setContentType(imagemFoto.getContentType());
+					
+	}
+	
+	Na tupla de imagem não aparece porém ele está lá
+	
+	O mesmo processo pode ser feito quando queremos gravar pdf.
+	
+	
