@@ -138,6 +138,8 @@
 				<tr>
 					<td><c:out value="${user.id}"></c:out></td>
 					<td><c:out value="${user.login}"></c:out></td>
+					<td><img src='<c:out value="${user.tempFotoUser}"></c:out>' alt="Imagem User" title="Imagem User"
+					width="50px" height="50px"></td>
 					<td><c:out value="${user.nome}"></c:out></td>
 					<td><c:out value="${user.telefone}"></c:out></td>
 

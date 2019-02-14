@@ -1,0 +1,44 @@
+Carregando na tabela a imagem:
+ Mostrar a foto.
+ 
+1 - Vamos colocar no método listrar do DAO:
+ 	
+ 	obj.setFotoBase64(rs.getString("fotobase64"));
+	obj.setContentType(rs.getString("contenttype")
+ 	
+2 - No nosso banco de dados não esta sendo gravado essa parte: data: e ;base64,
+	Estamos gravando o contentype(tipo): data:image/png e o dado propiamente.
+	
+	Precisamos, na hora de dar um retorno pra tela, concatenar as informações.
+	
+3 - Vamos criar um  atributo só pra mostrar na tabela de dados do html.
+	private String tempFotoUser; onde só existirar o GET, onde:
+	
+	tempFotoUser - atributo em si;
+	contentType - tipo, ex: image/p;
+	fotoBase64 - imagem em si, ex: "/9j/4AAQSkZJRgABAQEBLAEsAAD...".
+	
+		public String getTempFotoUser() {
+		tempFotoUser = "data:" + contentType + ";base64," + fotoBase64;
+		return tempFotoUser;
+	}	
+	
+	"data:" + contentType + ";base64," + fotoBase64; -> "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD...
+	
+	Onde esse atributo será chamado na tabela de apresentação(HTML)
+	
+4 - Mostrando na tabela:
+	Vamos colocar dentro de uma tag de imagem usando o JSTL e a expretion language;
+	<td><img src="<c:out value="${user.tempFotoUser}"></c:out>" width="30px"></td>
+
+
+
+
+
+
+
+
+
+
+
+

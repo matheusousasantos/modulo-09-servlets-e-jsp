@@ -15,6 +15,8 @@ public class BeanCursoJsp {
 	private String ibge;
 	private String fotoBase64;
 	private String contentType;
+	
+	private String tempFotoUser;
 
 	public String getLogin() {
 		return login;
@@ -121,5 +123,9 @@ public class BeanCursoJsp {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
-	
+
+	public String getTempFotoUser() {
+		tempFotoUser = "data:" + contentType + ";base64," + fotoBase64;
+		return tempFotoUser;
+	}	
 }
