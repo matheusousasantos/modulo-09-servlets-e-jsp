@@ -1,10 +1,11 @@
 package servlet;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,10 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import beans.BeanCursoJsp;
@@ -69,10 +67,37 @@ public class Usuario extends HttpServlet {
 				BeanCursoJsp obj = daoUsuario.consultar(user);
 				
 				if(obj != null) {											/*Nome qualquer - imagem que estamos baixando*/
-					response.setHeader("Content-Disposition", "attachament;arquivo." + obj.getContentType().split("\\/")[1]);
-				}
-			}
+					response.setHeader("Content-Disposition", "attachment;filename=arquivo."
+				+ obj.getContentType().split("\\/")[1]);
 				
+//              Converte a imagem(base64) do banco de dados pra byte[]
+				byte[] imageFotoBytes = new Base64().decodeBase64(obj.getFotoBase64());
+				
+//				Convertemos os bytes para um fluxo de entrada
+				InputStream is = new ByteArrayInputStream(imageFotoBytes);
+
+//				Início da resposta para o navegador {
+				
+//			    Agora vamos escrever na resposta...
+				
+				int read = 0; //Usado para o controle do fluxo.
+				
+				byte[] bytes = new byte[1024]; // Byte de saída que vai ser um array de byte de tamanho padrão de 1024
+				
+				OutputStream os = response.getOutputStream(); //Será nossa saída atribuída em uma variável
+
+//				Escrevendo a imagem na responsta:
+				while((read = is.read(bytes)) != -1) {//Enquanto isso acontecer é porque tem dados a ser lido.		
+					
+					os.write(bytes, 0, read);	// Vou escrever os bytes da entrada / o tamanho do valor vai de zero ao tamanho
+//					dos bytes a serem lidos.
+					
+				}
+				
+				os.flush(); //após a leitura vou finalizar e fechar o fluxo.
+				os.close();
+			}
+		}	
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,16 +159,13 @@ public class Usuario extends HttpServlet {
 					
 					Part imagemFoto = request.getPart("foto");
 					
-					String fotoBase64 = new Base64().
-							encodeBase64String(converteStreamParaByte(imagemFoto.getInputStream()));
+					String fotoBase64 = new Base64().encodeBase64String(converteStreamParaByte(imagemFoto.getInputStream()));
 					
 					usuario.setFotoBase64(fotoBase64);
 					usuario.setContentType(imagemFoto.getContentType());
 					
 				}
 				
-				
-
 				String msg = null;
 				boolean podeInserir = true;
 				
@@ -218,7 +240,7 @@ public class Usuario extends HttpServlet {
 		int reads = imagem.read();
 		
 		while(reads != -1) {
-			baos.write(reads);
+			baos.write(reads); /* Será escrito um fluxo de saída gravando em uma matriz de bytes */
 			reads = imagem.read();
 		}
 		

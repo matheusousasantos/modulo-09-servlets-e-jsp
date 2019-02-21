@@ -16,7 +16,7 @@ public class BeanCursoJsp {
 	private String fotoBase64;
 	private String contentType;
 	
-	private String tempFotoUser;
+	private String tempFotoUser; /*atributo aux*/
 
 	public String getLogin() {
 		return login;
