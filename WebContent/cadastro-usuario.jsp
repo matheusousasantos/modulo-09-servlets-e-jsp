@@ -105,6 +105,13 @@
 							<td><input type="file" name="foto" value="Foto"></td>
 				
 						</tr>
+						
+						<tr>
+						
+							<td>Curriculo:</td>
+							<td><input type="file" name="curriculo" value="curriculo"></td>
+				
+						</tr>
 
 						<tr>
 							<td></td>
@@ -128,6 +135,7 @@
 				<!-- Linha de título da tabela -->
 				<th>#</th>
 				<th>FOTO</th>
+				<th>CURRICULO</th>
 				<th>NOME</th>
 				<th>EXCLUIR</th>
 				<th>EDITAR</th>
@@ -137,8 +145,10 @@
 				<tr>
 					<td><c:out value="${user.id}"></c:out></td>
 					
-					<td><a href="salvarUsuario?acao=download&user=${user.id}"><img src='<c:out value="${user.tempFotoUser}"></c:out>' alt="Imagem User" title="Imagem User"
+					<td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}"><img src='<c:out value="${user.tempFotoUser}"></c:out>' alt="Imagem User" title="Imagem User"
 					width="50px" height="50px"></a></td>
+					
+					<td><a href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}">Curriculo</a></td>
 					
 					<td><c:out value="${user.nome}"></c:out></td>
 

@@ -66,35 +66,42 @@ public class Usuario extends HttpServlet {
 				
 				BeanCursoJsp obj = daoUsuario.consultar(user);
 				
-				if(obj != null) {											/*Nome qualquer - imagem que estamos baixando*/
+				if(obj != null) {	
+					
+				String contentType = "";
+				byte[] fileBytes = null;
+					
+				String tipo = request.getParameter("tipo");	
+				
+				if(tipo.equalsIgnoreCase("imagem")) {
+					
+					contentType = obj.getContentType();
+					fileBytes = new Base64().decodeBase64(obj.getFotoBase64());
+				} 
+				
+				else 
+				if(tipo.equalsIgnoreCase("curriculo")){
+						
+					contentType = obj.getContentTypeCurriculo();
+					fileBytes = new Base64().decodeBase64(obj.getCurriculoBase64());
+				}
+					
 					response.setHeader("Content-Disposition", "attachment;filename=arquivo."
-				+ obj.getContentType().split("\\/")[1]);
+				+ contentType.split("\\/")[1]);
 				
-//              Converte a imagem(base64) do banco de dados pra byte[]
-				byte[] imageFotoBytes = new Base64().decodeBase64(obj.getFotoBase64());
+				InputStream is = new ByteArrayInputStream(fileBytes);				
+				int read = 0;
 				
-//				Convertemos os bytes para um fluxo de entrada
-				InputStream is = new ByteArrayInputStream(imageFotoBytes);
+				byte[] bytes = new byte[1024];
+				
+				OutputStream os = response.getOutputStream();
 
-//				Início da resposta para o navegador {
-				
-//			    Agora vamos escrever na resposta...
-				
-				int read = 0; //Usado para o controle do fluxo.
-				
-				byte[] bytes = new byte[1024]; // Byte de saída que vai ser um array de byte de tamanho padrão de 1024
-				
-				OutputStream os = response.getOutputStream(); //Será nossa saída atribuída em uma variável
-
-//				Escrevendo a imagem na responsta:
-				while((read = is.read(bytes)) != -1) {//Enquanto isso acontecer é porque tem dados a ser lido.		
+				while((read = is.read(bytes)) != -1) {	
 					
-					os.write(bytes, 0, read);	// Vou escrever os bytes da entrada / o tamanho do valor vai de zero ao tamanho
-//					dos bytes a serem lidos.
-					
+					os.write(bytes, 0, read);	
 				}
 				
-				os.flush(); //após a leitura vou finalizar e fechar o fluxo.
+				os.flush(); 
 				os.close();
 			}
 		}	
@@ -157,12 +164,31 @@ public class Usuario extends HttpServlet {
 				
 				if(ServletFileUpload.isMultipartContent(request)) {
 					
+//					Adiciona a imagem que vem de parte(PART) do formulário 
 					Part imagemFoto = request.getPart("foto");
 					
-					String fotoBase64 = new Base64().encodeBase64String(converteStreamParaByte(imagemFoto.getInputStream()));
+					if(imagemFoto != null) { 
+						
+						String fotoBase64 = new Base64()
+								.encodeBase64String(converteStreamParaByte(imagemFoto.getInputStream()));
+						
+						usuario.setFotoBase64(fotoBase64);
+						usuario.setContentType(imagemFoto.getContentType());
 					
-					usuario.setFotoBase64(fotoBase64);
-					usuario.setContentType(imagemFoto.getContentType());
+					}
+					
+//					Adiciona a pdf que vem de parte(PART) do formulário 
+					Part curriculoPdf = request.getPart("curriculo");
+					
+					if(curriculoPdf != null) {
+						
+						String curriculoBase64 = new Base64()
+								.encodeBase64String(converteStreamParaByte(curriculoPdf.getInputStream()));
+						
+						usuario.setCurriculoBase64(curriculoBase64);
+						usuario.setContentTypeCurriculo(curriculoPdf.getContentType());
+					}
+					
 					
 				}
 				

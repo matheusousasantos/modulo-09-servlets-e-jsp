@@ -21,8 +21,9 @@ public class UsuarioDAO {
 
 	public void salvar(BeanCursoJsp usuario) {
 		String sql ="INSERT INTO usuario(login, senha, nome, telefone, cep, rua, bairro, "
-				+ "cidade, estado, ibge, fotobase64, contenttype) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "cidade, estado, ibge, fotobase64, contenttype, curriculobase64, contenttypecurriculo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
+			
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
@@ -36,6 +37,8 @@ public class UsuarioDAO {
 			insert.setString(10,usuario.getIbge());
 			insert.setString(11, usuario.getFotoBase64());
 			insert.setString(12,usuario.getContentType());
+			insert.setString(13, usuario.getCurriculoBase64());
+			insert.setString(14, usuario.getContentTypeCurriculo());
 			
 			insert.execute();
 			connection.commit();
@@ -96,6 +99,8 @@ public class UsuarioDAO {
 				obj.setIbge(rs.getString("ibge"));
 				obj.setFotoBase64(rs.getString("fotobase64"));
 				obj.setContentType(rs.getString("contenttype"));
+				obj.setCurriculoBase64(rs.getString("curriculobase64"));
+				obj.setContentTypeCurriculo(rs.getString("contenttypecurriculo"));
 				
 				lista.add(obj);
 			}
@@ -126,6 +131,8 @@ public class UsuarioDAO {
 				obj.setIbge(rs.getString("ibge"));
 				obj.setFotoBase64(rs.getString("fotobase64"));
 				obj.setContentType(rs.getString("contenttype"));
+				obj.setCurriculoBase64(rs.getString("curriculobase64"));
+				obj.setContentTypeCurriculo(rs.getString("contenttypecurriculo"));
 				
 				return obj;
 			}
@@ -153,7 +160,6 @@ public class UsuarioDAO {
 		pmt.setString(8, usuario.getCidade());
 		pmt.setString(9, usuario.getEstado());
 		pmt.setString(10,usuario.getIbge());
-		
 		
 		connection.commit();
 		

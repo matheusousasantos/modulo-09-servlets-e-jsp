@@ -1,0 +1,129 @@
+Agora vamos trabalhar com o PDF.
+No nosso sistema o usuário precisa inserir um currículo.
+
+1 - Vamos criar um campo pro PDF
+
+	<td>Curriculo:</td>
+	<td><input type="file" name="curriculo" value="curriculo"></td>
+	
+2 - Precisamos criar um campo no usuário tbm que será em base64.
+
+	private String curriculoBase64;
+	private String contentTypeCurriculo;
+	
+3 - Agora vamos criar no Banco de dados.
+
+4 - Agora o DAO
+
+5 - Pronto agora vamos definir o servlet:
+	O que vai acontecer quando o usuario inserir um curriculo no formulário.
+	
+	dentro do método post, vamos voltar a imagem: processar a imagem somente se o usuário inserir alguma coisa
+	
+		if(ServletFileUpload.isMultipartContent(request)) {
+						
+			Part imagemFoto = request.getPart("foto");
+			
+			if(imagemFoto != null) { - se for diferente de null porcessa a imagem.	
+			}			
+		}
+		
+		
+6 - Verificação e gravação no banco de dados:
+
+	Essa parte será a mesma coisa irá mudar somente os parâmentros passados
+
+	if(ServletFileUpload.isMultipartContent(request)) {
+					
+		Adiciona a imagem que vem de parte(PART) do formulário 
+		Part imagemFoto = request.getPart("foto");
+					
+		if(imagemFoto != null) { 
+						
+			String fotoBase64 = new Base64().encodeBase64String(converteStreamParaByte(imagemFoto.getInputStream()));		
+			usuario.setFotoBase64(fotoBase64);
+			usuario.setContentType(imagemFoto.getContentType());
+					
+		}
+					
+		Adiciona a pdf que vem de parte(PART) do formulário 
+		Part curriculoPdf = request.getPart("curriculo");
+					
+		if(curriculoPdf != null) {
+						
+			String curriculoBase64 = new Base64().encodeBase64String(converteStreamParaByte(curriculoPdf.getInputStream()));			
+			usuario.setCurriculoBase64(curriculoBase64);
+			usuario.setContentTypeCurriculo(curriculoPdf.getContentType());
+			
+		}
+		
+	
+		Pronto a gravação foi feita.		
+		agora vamos colocar um campo pra baixar esse PDF.
+		
+7 - Baixar PDF:
+	
+	No método Get quando entrá na ação 'download' na rotina que faz aparecer a imagem na tela será praticamente igual o do pdf
+	então faremos isso genérico passado um parâmentro 'tipo' pelo formulário que irá diferênciar o que é imagem ou pdf:
+	
+	form:
+	<a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}">
+									
+	<a href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}">
+	
+8 - No Servlet:
+
+	else if(acao.equalsIgnoreCase("download")) {
+				
+		BeanCursoJsp obj = daoUsuario.consultar(user);
+				
+		if(obj != null) {	
+					
+		String contentType = "";
+		byte[] fileBytes = null;
+					
+		String tipo = request.getParameter("tipo");	
+				
+		if(tipo.equalsIgnoreCase("imagem")) {
+					
+			contentType = obj.getContentType();
+			fileBytes = new Base64().decodeBase64(obj.getFotoBase64());
+		} 
+				
+		else 
+		if(tipo.equalsIgnoreCase("curriculo")) {
+						
+		    contentType = obj.getContentTypeCurriculo();
+			fileBytes = new Base64().decodeBase64(obj.getCurriculoBase64());
+		}
+					
+					response.setHeader("Content-Disposition", "attachment;filename=arquivo."
+				+ contentType.split("\\/")[1]);
+				
+				fileBytes = new Base64().decodeBase64(obj.getFotoBase64());
+				
+				InputStream is = new ByteArrayInputStream(fileBytes);				
+				int read = 0;
+				
+				byte[] bytes = new byte[1024];
+				
+				OutputStream os = response.getOutputStream();
+
+				while((read = is.read(bytes)) != -1) {	
+					
+					os.write(bytes, 0, read);	
+				}
+				
+				os.flush(); 
+				os.close();
+			}
+	
+	
+		
+		
+		
+		
+		
+		
+		
+		

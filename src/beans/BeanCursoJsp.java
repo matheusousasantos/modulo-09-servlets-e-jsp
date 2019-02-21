@@ -14,7 +14,9 @@ public class BeanCursoJsp {
 	private String estado;
 	private String ibge;
 	private String fotoBase64;
+	private String curriculoBase64;
 	private String contentType;
+	private String contentTypeCurriculo;
 	
 	private String tempFotoUser; /*atributo aux*/
 
@@ -57,7 +59,6 @@ public class BeanCursoJsp {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
 	
 
 	public String getCep() {
@@ -115,6 +116,14 @@ public class BeanCursoJsp {
 	public void setFotoBase64(String fotoBase64) {
 		this.fotoBase64 = fotoBase64;
 	}
+	
+	public String getCurriculoBase64() {
+		return curriculoBase64;
+	}
+
+	public void setCurriculoBase64(String curriculoBase64) {
+		this.curriculoBase64 = curriculoBase64;
+	}
 
 	public String getContentType() {
 		return contentType;
@@ -124,8 +133,18 @@ public class BeanCursoJsp {
 		this.contentType = contentType;
 	}
 
+	public String getContentTypeCurriculo() {
+		return contentTypeCurriculo;
+	}
+
+	public void setContentTypeCurriculo(String contentTypeCurriculo) {
+		this.contentTypeCurriculo = contentTypeCurriculo;
+	}
+
 	public String getTempFotoUser() {
 		tempFotoUser = "data:" + contentType + ";base64," + fotoBase64;
 		return tempFotoUser;
 	}	
+	
+	
 }
