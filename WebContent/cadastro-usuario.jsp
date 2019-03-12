@@ -149,10 +149,22 @@
 				<tr>
 					<td><c:out value="${user.id}"></c:out></td>
 					
-					<td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}"><img src="<c:out value="${user.tempFotoUser}"></c:out>" alt="Imagem User" title="Imagem User"
-					width="50px" height="50px"></a></td>
+					<c:if test="${user.fotoBase64.isEmpty() == false}">
+						<td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}"><img src="<c:out value="${user.tempFotoUser}"></c:out>" alt="Imagem User" title="Imagem User"
+						width="50px" height="50px"></a></td>
+					</c:if>
 					
-					<td><a href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}">Curriculo</a></td>
+					<c:if test="${user.fotoBase64.isEmpty() == true}">
+						<td><img alt="ImagemUser" src="resourses/img/user-img.png" width="50px" onclick="alert('Não pussue imagem')"></td>
+					</c:if>
+					
+					<c:if test="${user.curriculoBase64.isEmpty() == false}">
+						<td><a href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}"><img alt="Curriculo" src="resourses/img/pdf.png" width="50px"/></a></td>
+					</c:if>
+					
+					<c:if test="${user.curriculoBase64.isEmpty() == true}">
+						<td><img alt="Curriculo" src="resourses/img/pdf.png" width="50px" onclick="alert('Não possue curriculo')"/></td>
+					</c:if>
 					
 					<td><c:out value="${user.nome}"></c:out></td>
 

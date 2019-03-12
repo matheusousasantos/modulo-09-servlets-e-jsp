@@ -1,0 +1,37 @@
+1 - Validando campo em branco
+	
+	LoginServlet.java
+	
+	login != null && !login.isEmpty() && senha != null && !senha.isEmpty()
+	
+2 - No nosso sistema podemos salvar um registro sem imagem ou pdf, isso pode gerar um erro quando o usuário tentar baixar.
+
+	Solução:
+	
+	<c:if test="${false}">
+		<td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}">
+		<img src="<c:out value="${user.tempFotoUser}"></c:out>" alt="Imagem User" title="Imagem User"
+		width="50px" height="50px"></a></td>
+	</c:if>	
+	
+	Quando usamos o if com test(sempre retorna true ou false) falso o que estiver dentro da tag não será mostrada.
+	
+	Então podemos definir:
+	<c:if test="${user.fotoBase64.isEmpty() == false"> - Se tiver algo dentro dele mostra a imagem.
+	
+	Se o campo de imagem não for nulo:
+	<c:if test="${user.fotoBase64.isEmpty() == true}">
+		<td><img alt="ImagemUser" src="resourses/img/user-img.png" width="50px"></td>
+	</c:if>
+	
+3 - Vamos vazer a mesma condição para o curriculo:
+
+	<c:if test="${user.curriculoBase64.isEmpty() == false}">
+		<td><a href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}"><img alt="Curriculo" src="resourses/img/pdf.png" width="50px"/></a></td>
+	</c:if>
+					
+	<c:if test="${user.curriculoBase64.isEmpty() == true}">
+		<td><img alt="Curriculo" src="resourses/img/pdf.png" width="50px" onclick="alert('Não possue curriculo')"/></td>
+	</c:if>
+	
+	porém quando não o registro não tiver o pdf mostrará a imagem mais um alerta com JS que não existe o pdf.
