@@ -47,7 +47,7 @@
 							<td>CEP:</td>
 							<td><input type="text" id="cep" name="cep"
 								onblur="consultarCep();" value="${user.cep}" 
-								placeholder="Informe um CEP válido"></td>
+								placeholder="Informe um CEP válido" maxlength="9"></td>
 						</tr>
 
 						<tr>
@@ -55,48 +55,45 @@
 							<td>Login:</td>
 							<!-- célula -->
 							<td><input type="text" id="login" name="login"
-								value="${user.login}"></td>
+								value="${user.login}" maxlength="10"></td>
 							<!-- Mostra na hora que formos editar -->
 
 							<td>Rua:</td>
 							<td><input type="text" id="rua" name="rua"
-								value="${user.rua}"></td>
+								value="${user.rua}" maxlength="20"></td>
 
 						</tr>
 
 						<tr>
 							<td>Senha:</td>
 							<td><input type="password" id="senha" name="senha"
-								value="${user.senha}"></td>
+								value="${user.senha}" maxlength="10"></td>
 
 							<td>Bairro:</td>
 							<td><input type="text" id="bairro" name="bairro"
-								value="${user.bairro}"></td>
+								value="${user.bairro}" maxlength="50" maxlength="20"></td>
 						</tr>
 
 						<tr>
 							<td>Nome:</td>
 							<td><input type="text" id="nome" name="nome"
-								value="${user.nome}" placeholder="Informe o nome do Usuário"></td>
+								value="${user.nome}" placeholder="Informe o nome do Usuário" maxlength="50"></td>
 
 							<td>Cidade:</td>
 							<td><input type="text" id="cidade" name="cidade"
-								value="${user.cidade}" placeholder="Informe o nome da Cidade"></td>
+								value="${user.cidade}" placeholder="Informe o nome da Cidade" maxlength="20"></td>
 						</tr>
 
 						<tr>
-							<td>Telefone:</td>
-							<td><input type="text" id="telefone" name="telefone"
-								value="${user.telefone}"></td>
 
 							<td>Estado:</td>
 							<td><input type="text" id="estado" name="estado"
-								value="${user.estado}"></td>
+								value="${user.estado}" maxlength="2"></td>
 						</tr>
 
 						<tr>
 							<td>IBGE:</td>
-							<td><input type="text" id="ibge" name="ibge" value="${user.ibge}"></td>
+							<td><input type="text" id="ibge" name="ibge" value="${user.ibge}" maxlength="20"></td>
 						</tr>
 						
 						<tr>

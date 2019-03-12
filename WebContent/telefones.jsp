@@ -39,7 +39,7 @@
 						<tr>
 							<td>NÚMERO:</td>
 							<td><input type="text" id="numero" name="numero"/></td>
-							<td><select	id="tipo" name="tipo">
+							<td><select	id="tipo" name="tipo" style="width: 185px;">
 								<option>Casa</option>
 								<option>Contato</option>
 								<option>Celular</option>
@@ -48,9 +48,16 @@
 						</tr>
 
 						<tr>
-							<td></td>
-							<td><input type="submit" value="Salvar"> 
-							<td></td>
+							
+							<td>
+								<td><input type="submit" value="Salvar" style="width: 185px;"> 
+							</td>
+							
+							<td>
+								<input type="submit" value="Voltar" 
+								onclick="document.getElementById('formUser').action = 'salvarTelefones?acao=voltar'" style="width: 185px;"/>
+							</td>
+							
 						</tr>
 					</table>
 				</li>

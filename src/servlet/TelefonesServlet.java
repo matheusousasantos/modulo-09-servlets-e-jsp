@@ -70,32 +70,42 @@ public class TelefonesServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		String acao = request.getParameter("acao");
+		
 		try {
 		
 			BeanCursoJsp beanCursoJsp = (BeanCursoJsp) request.getSession().getAttribute("usuarioEscolhido");
-			String numero = request.getParameter("numero");
-			String tipo = request.getParameter("tipo");
 			
-			Telefone t = new Telefone();
-			t.setNumero(numero);
-			t.setTipo(tipo);
-			t.setUsuario(beanCursoJsp.getId());
-			
-			telefoneDAO.salvar(t);
-			
-			request.getSession().setAttribute("usuarioEscolhido", beanCursoJsp);
-			request.setAttribute("usuarioEscolhido", beanCursoJsp);
-			
-			RequestDispatcher view = request.getRequestDispatcher("/telefones.jsp");
-			request.setAttribute("telefones", telefoneDAO.listar(beanCursoJsp.getId()));
-			view.forward(request, response);
+			if(acao != null && acao.equalsIgnoreCase("voltar")) {
+				
+				System.out.println("caiu aqui!! voltar");
+				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
+				request.setAttribute("usuarios", usuarioDAO.listar());
+				view.forward(request, response);
+				
+			}else{
+				
+				System.out.println("caiu aqui!! fluxo normal");
+				String numero = request.getParameter("numero");
+				String tipo = request.getParameter("tipo");
+				
+				Telefone t = new Telefone();
+				t.setNumero(numero);
+				t.setTipo(tipo);
+				t.setUsuario(beanCursoJsp.getId());
+				
+				telefoneDAO.salvar(t);
+				
+				request.getSession().setAttribute("usuarioEscolhido", beanCursoJsp);
+				request.setAttribute("usuarioEscolhido", beanCursoJsp);
+				
+				RequestDispatcher view = request.getRequestDispatcher("/telefones.jsp");
+				request.setAttribute("telefones", telefoneDAO.listar(beanCursoJsp.getId()));
+				view.forward(request, response);
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
-
-		
 }
