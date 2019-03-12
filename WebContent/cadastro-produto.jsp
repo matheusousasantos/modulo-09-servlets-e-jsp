@@ -27,17 +27,17 @@
 			
 			<tr>
 				<td>NOME</td>
-				<td><input type="text" id="nome" name="nome" value ="${x.nome}"></td>
+				<td><input type="text" id="nome" name="nome" value ="${x.nome}" maxlength="20"></td>
 			</tr>
 			
 			<tr>
-				<td>QUANTIDADE</td>
-				<td><input type="text" id="quantidade" name="quantidade" value ="${x.quantidade}"></td>
+				<td>QUANTIDADE Uni.</td>
+				<td><input type="number" id="quantidade" name="quantidade" value ="${x.quantidade}" maxlength="10"></td>
 			</tr>
 			
 			<tr>
 				<td>VALOR</td>
-				<td><input type="text" id="valor" name="valor" value ="${x.valor}"></td>
+				<td><input type="text" id="valor" name="valor" value ="${x.valor}" maxlength="12"></td>
 			</tr>
 			
 			<tr>

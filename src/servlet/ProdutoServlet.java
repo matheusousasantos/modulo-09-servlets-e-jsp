@@ -112,9 +112,13 @@ public class ProdutoServlet extends HttpServlet {
 					produto.setQuantidade(Double.parseDouble(quantidade));
 				}
 
-				if (valor != null && !valor.isEmpty())
-					produto.setValor(Double.parseDouble(valor));
-
+				if (valor != null && !valor.isEmpty()) {
+					
+					String arrumandoPonto = valor.replaceAll("\\.", "");
+					String arrumandoVirgula = arrumandoPonto.replaceAll("\\,", ".");
+					produto.setValor(Double.parseDouble(arrumandoVirgula));
+				}
+				
 				if (msg != null) {
 					request.setAttribute("msg", msg);
 				} else if (id == null || id.isEmpty() && daoProduto.validarNome(nome) && podeInserir) {

@@ -1,2 +1,20 @@
-1 - Limitando o tamanho do texto:
-	maxlength="10"
+1 - Posso definir campos que só aceitam número como number
+	type="number"
+	
+2 - Podem ter um problema do usuario inserir em um número descimal em vez do ponto uma virgula:
+	Podemos resolver assim:
+	
+	ProdutoServlet.java
+	
+	produto.setValor(Double.parseDouble(valor.replace("\\,", ".")));
+	
+	replace = substituir onde tiver ',' substitue por '.'
+	
+	exemplo:
+	10.800,40
+	
+	temos que substituir o valor:
+	
+	String arrumandoPonto = valor.replace("\\.", ""); o valor fica: 10800,40
+	String arrumandoVirgula = arrumandoPonto.replace("\\,", "."); o valor fica: 10800.40
+	produto.setValor(Double.parseDouble(arrumandoVirgula));
