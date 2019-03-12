@@ -15,10 +15,10 @@
 
 	<div class="login-page">
 		<div class="form">
-			<form action="LoginServlet" method="post" class="login-form">
+			<form action="login-servlet" method="post" class="login-form">
 
-				Login: <input type="text" id="login" name="login"><br />
-				Senha: <input type="text" id="senha" name="senha"><br /> 
+				Login:<input type="text" id="login" name="login">
+				Senha:<input type="text" id="senha" name="senha">
 				<button type="submit" value="Logar">Logar</button>
 
 			</form>

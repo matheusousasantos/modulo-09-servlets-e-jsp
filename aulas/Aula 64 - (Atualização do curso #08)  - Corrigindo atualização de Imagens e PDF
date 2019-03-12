@@ -1,0 +1,56 @@
+Corrigindo alguns erros do sistema.
+
+1 - Vamos atualizar os campos do método atualizar colocando os novos atributos. 
+
+2 - Se o usuário quiser atualizar somente os dados e não a imagem, como não será inserido a imagem novamente
+	o sistema tende a achar que no campo não terá nada a ser inserido
+	
+3 - Vamos precisar do readonly para ocultar a imagem que será salva na tela para ser usada posteriormente.
+	<input type="text" value="${user.fotoBase64}" readonly="readonly"> - Usamos muito ele pra trabalhar dados
+	em memória, manter na tela e depois mandar pro servidor como atualização etc...
+	
+4 - Na servlet:
+
+	Quando u informo uma foto:
+	
+	if(imagemFoto != null && imagemFoto.getInputStream().available() > 0) { 
+						
+		String fotoBase64 = new Base64().encodeBase64String(converteStreamParaByte(imagemFoto.getInputStream()));
+						
+		usuario.setFotoBase64(fotoBase64);
+		
+		usuario.setContentType(imagemFoto.getContentType());
+		
+	Quando eu quero só atualizar sem modoficar a foto atribu-o ela no fotoTemp e recupero no senão:
+					
+	} else {
+		usuario.setFotoBase64(request.getParameter("fotoTemp"));
+	}
+	
+5 - Obs:
+	O file só pode ser pego pelo objeto Part - agora textos pegamos pelo getParameter
+	
+	
+6 - Obs 2: Quando colocamos pra editar, como não é um campo de texto, ele não mostrar o que esrá gravado no banco de dados.
+	resolvemos colocando em outro componente escondido do tipo texto. Será trazido do banco de dados uma text referênte a
+	base64
+	
+ obs: O resto do assunto está no código.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

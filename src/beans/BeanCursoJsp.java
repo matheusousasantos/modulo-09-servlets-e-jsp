@@ -14,8 +14,8 @@ public class BeanCursoJsp {
 	private String estado;
 	private String ibge;
 	private String fotoBase64;
-	private String curriculoBase64;
 	private String contentType;
+	private String curriculoBase64;
 	private String contentTypeCurriculo;
 	
 	private String tempFotoUser; /*atributo aux*/
@@ -145,6 +145,5 @@ public class BeanCursoJsp {
 		tempFotoUser = "data:" + contentType + ";base64," + fotoBase64;
 		return tempFotoUser;
 	}	
-	
 	
 }

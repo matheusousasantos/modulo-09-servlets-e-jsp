@@ -146,26 +146,31 @@ public class UsuarioDAO {
 
 	public void atualizar(BeanCursoJsp usuario) {
 //		Vai execultar a Atualização
-		String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ?, telefone = ? cep = ?, "
-				+ "rua = ?, bairro = ?, cidade = ?, estado = ?, ibge = ? WHERE id =" +usuario.getId(); 
+	
+		String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ?, telefone = ?, cep = ?, rua = ?, bairro = ?, cidade = ?, estado = ?, ibge = ?, fotobase64 = ?, contenttype = ?, curriculobase64 = ?, contenttypecurriculo = ? WHERE id =" +usuario.getId(); 
+		
 		try {
-		PreparedStatement pmt = connection.prepareStatement(sql);
-		pmt.setString(1, usuario.getLogin());
-		pmt.setString(2, usuario.getSenha());
-		pmt.setString(3, usuario.getNome());
-		pmt.setString(4, usuario.getTelefone());
-		pmt.setString(5, usuario.getCep());
-		pmt.setString(6, usuario.getRua());
-		pmt.setString(7, usuario.getBairro());
-		pmt.setString(8, usuario.getCidade());
-		pmt.setString(9, usuario.getEstado());
-		pmt.setString(10,usuario.getIbge());
-		
-		connection.commit();
-		
-		System.out.println(sql);
-		
-		pmt.executeUpdate();
+			
+			PreparedStatement pmt = connection.prepareStatement(sql);
+			pmt.setString(1, usuario.getLogin());
+			pmt.setString(2, usuario.getSenha());
+			pmt.setString(3, usuario.getNome());
+			pmt.setString(4, usuario.getTelefone());
+			pmt.setString(5, usuario.getCep());
+			pmt.setString(6, usuario.getRua());
+			pmt.setString(7, usuario.getBairro());
+			pmt.setString(8, usuario.getCidade());
+			pmt.setString(9, usuario.getEstado());
+			pmt.setString(10,usuario.getIbge());
+			pmt.setString(11, usuario.getFotoBase64());
+			pmt.setString(12, usuario.getContentType());
+			pmt.setString(13, usuario.getCurriculoBase64());
+			pmt.setString(14, usuario.getContentTypeCurriculo());
+			
+			connection.commit();
+			
+			pmt.executeUpdate();
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			try {
