@@ -1,0 +1,23 @@
+Vamos resolver o problema do campo da mascara.
+
+Problema: Quando eu recupero os dados do valor ele mostra na tela os valores como double não os da mascará.
+
+1 - Vamos criar um método auxiliar:
+
+	public String getValorEmTexto() {
+		return Double.toString(valor).replace('.', ','); - vou pegar o valor em double, transformar em String e trocar o
+		'.' por uma ','
+	}
+	
+	Daí eu chamo o método na tela.
+	value ="${x.valorEmTexto}" ></td> - Não precisamos colocar o 'get' porque é esse metodo que o Java chama.
+	
+2 - Para arrumar o valor na tabela de demostração vamos usuaro o JSTL bibliotecas do JSP
+	
+	Declaração:
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	
+	onde, no código, será...
+	<td><fmt:formatNumber type="number" maxFractionDigits=""/></td>
+	
+	maxFractionDigits: máximo de números depois da virgula.

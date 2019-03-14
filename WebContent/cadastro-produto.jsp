@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -42,7 +44,7 @@
 			<tr>
 				<td>VALOR</td>
 				<td><input type="text" id="valor" maxlength="9" data-thousands="." data-decimal="," 
-				data-precision="2" name="valor" value ="${x.valor}" ></td>
+				data-precision="2" name="valor" value ="${x.valorEmTexto}" ></td>
 			</tr>
 			
 			<tr>
@@ -75,8 +77,10 @@
 				<td><c:out value="${x.id}"/></td>
 				<td><c:out value="${x.nome}"/></td>
 				<td><c:out value="${x.quantidade}"/></td>
-				<td><c:out value="${x.valor}"/></td>
+				
+				<td><fmt:formatNumber type="number" maxFractionDigits="2" value="${x.valor}"/></td>
 				<td><a href="salvarProduto?acao=deletar&&id=${x.id}" title="Exclur">
+				
 				<img src="resourses/img/botao-excluir.jpg" width="20px"/></a></td>
 				
 				<td><a href="salvarProduto?acao=editar&&id=${x.id}" title="Editar">
