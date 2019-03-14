@@ -8,6 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+<script src="resourses/javascript/jquery.min.js" type="text/javascript"></script>
+<script src="resourses/javascript/jquery.maskMoney.min.js" type="text/javascript"></script>
+
 <link rel="stylesheet" type="text/css" href="resourses/css/cadastro.css"/>
 </head>
 <body>
@@ -37,7 +41,8 @@
 			
 			<tr>
 				<td>VALOR</td>
-				<td><input type="text" id="valor" name="valor" value ="${x.valor}" maxlength="12"></td>
+				<td><input type="text" id="valor" maxlength="9" data-thousands="." data-decimal="," 
+				data-precision="2" name="valor" value ="${x.valor}" ></td>
 			</tr>
 			
 			<tr>
@@ -106,6 +111,14 @@
   	
 
   </script>
-
 </body>
+
+ <script type="text/javascript">
+
+	$(function() {
+	    $('#valor').maskMoney();
+	 })
+
+</script>
+
 </html>

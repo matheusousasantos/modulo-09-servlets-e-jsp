@@ -1,0 +1,54 @@
+1 - Vamos definir no front end  mask do jquery:
+	Jquery mask money - vai na opção de plugin
+	
+2 - Precisamos do jquery
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+	
+	copiado do site...
+	
+3 - vamos criar uma pasta de javascript
+
+4 - Podemos salvar o arquivo JQuery pra nossa aplicação depender de servidor externo.
+	//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js <- joga no google e pega o código.
+	
+    daí criamos um arquivo JS e colamos nele.
+    
+    Quando temos: ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js, ele aponta pro servidor externo
+    então podemos apontar diretamente pro arquivo dendo do projeto, ficando...
+    
+    resourses/javascript/jquery.min.js"
+    
+5 - Iremos fazr também com o mask money:
+	
+	<script src="resourses/javascript/jquery.maskMoney.min.js" type="text/javascript"></script>
+	<script src="resourses/javascript/jquery.min.js" type="text/javascript"></script>
+	
+	os 2 arquivos entro do próprio projeto.
+	
+5 - Podemos fazer o teste 'exibir codigo fonte' o código e clicando no link do jquery pra ver se funciona.
+
+6 - Precisamos colocar no código aonde a mascará vai funcionar:
+	 $(function() {
+   		 $('#valor').maskMoney();
+  	})
+  	
+  	que será no campo valor.
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+
