@@ -21,7 +21,8 @@ public class UsuarioDAO {
 
 	public void salvar(BeanCursoJsp usuario) {
 		String sql ="INSERT INTO usuario(login, senha, nome, telefone, cep, rua, bairro, "
-				+ "cidade, estado, ibge, fotobase64, contenttype, curriculobase64, contenttypecurriculo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "cidade, estado, ibge, fotobase64, contenttype, curriculobase64, "
+				+ "contenttypecurriculo, fotobase64miniatura) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			
 			PreparedStatement insert = connection.prepareStatement(sql);
@@ -39,6 +40,7 @@ public class UsuarioDAO {
 			insert.setString(12,usuario.getContentType());
 			insert.setString(13, usuario.getCurriculoBase64());
 			insert.setString(14, usuario.getContentTypeCurriculo());
+			insert.setString(15, usuario.getFotoBase64Miniatura());
 			
 			insert.execute();
 			connection.commit();
@@ -147,7 +149,11 @@ public class UsuarioDAO {
 	public void atualizar(BeanCursoJsp usuario) {
 //		Vai execultar a Atualização
 	
-		String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ?, telefone = ?, cep = ?, rua = ?, bairro = ?, cidade = ?, estado = ?, ibge = ?, fotobase64 = ?, contenttype = ?, curriculobase64 = ?, contenttypecurriculo = ? WHERE id =" +usuario.getId(); 
+		String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ?, "
+				+ "telefone = ?, cep = ?, rua = ?, bairro = ?, cidade = ?, "
+				+ "estado = ?, ibge = ?, fotobase64 = ?, contenttype = ?, "
+				+ "curriculobase64 = ?, contenttypecurriculo = ?, "
+				+ "fotobase64miniatura = ? WHERE id =" +usuario.getId(); 
 		
 		try {
 			
@@ -166,6 +172,7 @@ public class UsuarioDAO {
 			pmt.setString(12, usuario.getContentType());
 			pmt.setString(13, usuario.getCurriculoBase64());
 			pmt.setString(14, usuario.getContentTypeCurriculo());
+			pmt.setString(15, usuario.getFotoBase64Miniatura());
 			
 			connection.commit();
 			

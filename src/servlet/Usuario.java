@@ -122,6 +122,7 @@ public class Usuario extends HttpServlet {
 			throws ServletException, IOException {
 
 		String acao = request.getParameter("acao");
+		System.out.println(acao);
 
 		if (acao != null && acao.equalsIgnoreCase("reset")) {
 
@@ -205,6 +206,9 @@ public class Usuario extends HttpServlet {
 							String miniaturaBase64 = "data:image/png;dase64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
 							
 							System.out.println(miniaturaBase64);
+							
+							usuario.setFotoBase64Miniatura(miniaturaBase64);
+							
 //						}
 
 					} else {
@@ -232,37 +236,39 @@ public class Usuario extends HttpServlet {
 
 					}
 				}
+				
+				System.out.println("continuou l. 239");
 
 				String msg = null;
 				boolean podeInserir = true;
 
 				if (login == null || login.isEmpty()) {
 					msg = "Login deve ser informado!";
+					System.out.println("Login deve ser informado!");
 					podeInserir = false;
 				}
 
 				else if (senha == null || senha.isEmpty()) {
 					msg = "Senha deve ser informado!";
+					System.out.println("Login deve ser informado!");
 					podeInserir = false;
 				}
 
 				else if (nome == null || nome.isEmpty()) {
 					msg = "Nome deve ser informado!";
-					podeInserir = false;
-				}
-
-				else if (telefone == null || telefone.isEmpty()) {
-					msg = "Telefone deve ser informado!";
+					System.out.println("nome deve ser informado!");
 					podeInserir = false;
 				}
 
 				else if (id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {
 					msg = "Login já cadastrado!";
+					System.out.println("Login deve ser informado!");
 					podeInserir = false;
 				}
 
 				else if (id == null || id.isEmpty() && !daoUsuario.validarSenha(senha)) {
 					msg = "Senha já cadastrada!";
+					System.out.println("Login deve ser informado!");
 					podeInserir = false;
 				}
 
@@ -272,12 +278,12 @@ public class Usuario extends HttpServlet {
 
 				else if (id == null || id.isEmpty() && daoUsuario.validarLogin(login) && podeInserir) {
 					daoUsuario.salvar(usuario);
-
+					System.out.println("Salvo...");
 				}
 
 				else if (id != null && !id.isEmpty() && podeInserir) {
 					daoUsuario.atualizar(usuario);
-					System.out.println("Atualizado");
+					System.out.println("Atualizado...");
 				}
 
 				if (!podeInserir) {
