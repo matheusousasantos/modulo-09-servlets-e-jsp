@@ -1,5 +1,7 @@
 package servlet;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 
+import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -170,11 +174,38 @@ public class Usuario extends HttpServlet {
 					Part imagemFoto = request.getPart("foto");
 
 					if (imagemFoto != null && imagemFoto.getInputStream().available() > 0) {
+						
+						byte[] byteImagem = converteStreamParaByte(imagemFoto.getInputStream());
 
-						String fotoBase64 = new Base64().encodeBase64String(converteStreamParaByte(imagemFoto.getInputStream()));
+						String fotoBase64 = new Base64().encodeBase64String(byteImagem);
 
 						usuario.setFotoBase64(fotoBase64);
 						usuario.setContentType(imagemFoto.getContentType());
+						
+//						Início miniatura da imagem {
+							
+//							Transformar em um bufferedImage:
+							BufferedImage bI = ImageIO.read(new ByteArrayInputStream(byteImagem));
+
+//							Pegar o tipo da Imagem, esse tipo retorna um inteiro:
+							int type = bI.getType() == 0 ? bI.TYPE_INT_ARGB : bI.getType();
+							
+//							Cria imagem em miniatura:
+							BufferedImage resizedImage = new BufferedImage(100, 100, type);
+							Graphics2D g = resizedImage.createGraphics();
+							
+//							Trasforma a miniatura em uma imagem:
+							g.drawImage(resizedImage, 0, 0,100,100, null);
+							
+//							Escrever imagem novamente:
+							ByteArrayOutputStream baos = new ByteArrayOutputStream();
+							ImageIO.write(resizedImage, "png", baos);
+							
+//							Agora vamos ter a imagem em miniatura:
+							String miniaturaBase64 = "data:image/png;dase64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
+							
+							System.out.println(miniaturaBase64);
+//						}
 
 					} else {
 
