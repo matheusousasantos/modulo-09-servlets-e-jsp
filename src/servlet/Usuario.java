@@ -85,7 +85,7 @@ public class Usuario extends HttpServlet {
 					else if (tipo.equalsIgnoreCase("curriculo")) {
 
 						contentType = obj.getContentTypeCurriculo();
-						fileBytes = new Base64().decodeBase64(obj.getCurriculoBase64());
+						fileBytes = new Base64().decodeBase64(obj.getCurriculoBase64());//Transforma de base64 para bytes
 					}
 
 					response.setHeader("Content-Disposition",
@@ -176,9 +176,11 @@ public class Usuario extends HttpServlet {
 
 					if (imagemFoto != null && imagemFoto.getInputStream().available() > 0) {
 						
+//						pega o fluxo de dados da imagem e transforma ela em array de bytes
 						byte[] byteImagem = converteStreamParaByte(imagemFoto.getInputStream());
 
-						String fotoBase64 = new Base64().encodeBase64String(byteImagem);
+//						transforma de array de bytes para Base64
+						String fotoBase64 = new Base64().encodeBase64String(byteImagem); //Trasforma de bytes para base64
 
 						usuario.setFotoBase64(fotoBase64);
 						usuario.setContentType(imagemFoto.getContentType());
@@ -237,7 +239,6 @@ public class Usuario extends HttpServlet {
 					}
 				}
 				
-				System.out.println("continuou l. 239");
 
 				String msg = null;
 				boolean podeInserir = true;

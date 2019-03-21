@@ -1,7 +1,7 @@
 Vamos trabalhar com a performance do Sistema:
 A imagem é muito pesada ,podemos mostrar somente uma miniatura.
 
-1 - Miniatura - complactar a imagem não precisando carregar ela completa.
+1 - Miniatura - compactar a imagem não precisando carregar ela completa.
 	Será feita na hora do cadastro.
 	
 2 - Vou precisar dessa imagem em Bytes.
@@ -13,3 +13,6 @@ A imagem é muito pesada ,podemos mostrar somente uma miniatura.
 	ImageIO -> Lê a mensagem
 	
 Porque transformar em buffered? Objetos em java pra trabalhar com a parte gráfica.
+
+Obs: essa imagem salva em miniatura já estará com seu tipo definido, quando percisar-mos mostrar na tela	
+     não será preciso monta-la como foi feito anteiormente.

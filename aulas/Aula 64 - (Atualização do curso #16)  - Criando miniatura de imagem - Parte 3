@@ -1,0 +1,21 @@
+Como salvamos o objeto em miniatura podemos mostra-lo no lugar da imagem salva anteriormente por ser de tamanho menor.
+	
+1 - Vamos mostrar a miniatura em:
+
+	td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}">
+	<img src="<c:out value="${user.tempFotoUser}">
+	</c:out>" alt="Imagem User" title="Imagem User" mostrando a imagem(miniatura) completa.
+	
+	fica:
+	...<c:out value="${user.fotoBase64Miniatura}"...
+	
+2 - No banco de dados também será preciso carregar a miniatura(que será o mais importânte):
+
+	No SELECT:
+	
+	sai:   obj.setFotoBase64(rs.getString("fotobase64"));
+	entra: obj.setFotoBase64Miniatura(rs.getString("fotobase64miniatura"));
+	
+	onde será preciso buscar no banco de dados, assim como o método consultar.
+	
+	Nesse vídeo é gerado um erro: a imagem não aparece no na tabela da tela.

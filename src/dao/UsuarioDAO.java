@@ -99,7 +99,8 @@ public class UsuarioDAO {
 				obj.setCidade(rs.getString("cidade"));
 				obj.setEstado(rs.getString("estado"));
 				obj.setIbge(rs.getString("ibge"));
-				obj.setFotoBase64(rs.getString("fotobase64"));
+				//obj.setFotoBase64(rs.getString("fotobase64"));
+				obj.setFotoBase64Miniatura(rs.getString("fotobase64miniatura"));
 				obj.setContentType(rs.getString("contenttype"));
 				obj.setCurriculoBase64(rs.getString("curriculobase64"));
 				obj.setContentTypeCurriculo(rs.getString("contenttypecurriculo"));
@@ -132,6 +133,7 @@ public class UsuarioDAO {
 				obj.setEstado(rs.getString("estado"));
 				obj.setIbge(rs.getString("ibge"));
 				obj.setFotoBase64(rs.getString("fotobase64"));
+				obj.setFotoBase64Miniatura(rs.getString("fotobase64miniatura"));
 				obj.setContentType(rs.getString("contenttype"));
 				obj.setCurriculoBase64(rs.getString("curriculobase64"));
 				obj.setContentTypeCurriculo(rs.getString("contenttypecurriculo"));
