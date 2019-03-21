@@ -26,7 +26,7 @@ public class ProdutoServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			String acao = request.getParameter("acao");
+			String acao = request.getParameter("acao") != null ? request.getParameter("acao") : "listartodos";
 			String id = request.getParameter("id");
 
 			if (acao.equalsIgnoreCase("deletar")) {

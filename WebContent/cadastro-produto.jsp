@@ -17,8 +17,8 @@
 <link rel="stylesheet" type="text/css" href="resourses/css/cadastro.css"/>
 </head>
 <body>
-	<a href="acessoliberado.jsp" style="text-decoration: none; color: black;">Inicio</a>
-	<a href="index.jsp" style="text-decoration: none; color: black;">Sair</a>
+	<a href="acessoliberado.jsp"><img title="Início" src="resourses/img/home.png" width="50px"></a>
+	<a href="index.jsp"><img title="Início" src="resourses/img/sair.png" width="50px"></a>
 	
 	<h1>Produtos</h1>
 	<h3>${msg}</h3>
@@ -61,7 +61,7 @@
    <div class="container">
 	<table class="responsive-table">
 	
-	<caption>Produtos Cadastrados</caption>
+	<caption>Produtos</caption>
 		
 		<tr>
 			<th>ID</th>

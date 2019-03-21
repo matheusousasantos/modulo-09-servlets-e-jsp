@@ -23,9 +23,8 @@
 
 </head>
 <body>
-	<a href="acessoliberado.jsp"
-		style="text-decoration: none; color: black;">Inicio</a>
-	<a href="index.jsp" style="text-decoration: none; color: black;">Sair</a>
+	<a href="acessoliberado.jsp"><img title="Início" src="resourses/img/home.png" width="50px"></a>
+	<a href="index.jsp"><img title="Início" src="resourses/img/sair.png" width="50px"></a>
 
 	<center>
 		<h1>Cadastro de Usuário</h1>
@@ -146,12 +145,12 @@
 				<tr>
 					<td><c:out value="${user.id}"></c:out></td>
 					
-					<c:if test="${user.fotoBase64Miniatura.isEmpty() == false}">
+					<c:if test="${user.fotoBase64Miniatura != null}">
 						<td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}"><img src="<c:out value="${user.fotoBase64Miniatura}"></c:out>" alt="Imagem User" title="Imagem User"
 						width="50px" height="50px"></a></td>
 					</c:if>
 					
-					<c:if test="${user.fotoBase64Miniatura.isEmpty() == true}">
+					<c:if test="${user.fotoBase64Miniatura == null}">
 						<td><img alt="ImagemUser" src="resourses/img/user-img.png" width="50px" onclick="alert('Não pussue imagem')"></td>
 					</c:if>
 					

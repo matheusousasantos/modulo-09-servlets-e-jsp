@@ -14,6 +14,9 @@
 <body>
 
 	<div class="login-page">
+		<center><h3>Projeto Didático</h3></center><br>
+		<center><h1>JSP + Servlet + JDBC</h1></center><br>
+		<center><span><b>USUÁRIO:</b> admin <br> <b>SENHA:</b> admin</span></center><br>
 		<div class="form">
 			<form action="login-servlet" method="post" class="login-form">
 
@@ -23,6 +26,9 @@
 
 			</form>
 		</div>
+		
+		<center><h3><a style="text-decoration: none;" href="https://www.google.com.br">Formação Java Web</a></h3></center>
+		
 	</div>
 </body>
 </html>

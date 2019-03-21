@@ -1,0 +1,4 @@
+Definido quando o sistema não tiver ação nehuma e tenha que cair na servlet:
+	
+	ProdutoServlet.java
+	String acao = request.getParameter("acao") != null ? request.getParameter("acao") : "listartodos";
