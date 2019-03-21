@@ -1,0 +1,12 @@
+Se no caso tivermos um admin não queremos que o seus dados apareçam para todos os usuarios, podemos recuperar os usuarios exeto o admin
+podemos fazer isso direto no SQL.
+
+No Select assim como no delete e no consultar:
+	
+	String sql = "SELECT * FROM usuario WHERE id = '"+id+"'AND login <> 'admin'";
+	
+	String sql = "SELECT * FROM usuario WHERE login <> 'admin'";
+	
+	String sql = "DELETE FROM usuario WHERE id = '"+id+"'AND login <> 'admin'";
+	
+	Tudo isso a nível de banco de dados, fazendo com que o usuario admin não seja acessado por ninguem.
