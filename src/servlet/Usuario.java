@@ -79,13 +79,13 @@ public class Usuario extends HttpServlet {
 					if (tipo.equalsIgnoreCase("imagem")) {
 
 						contentType = obj.getContentType();
-						fileBytes = new Base64().decodeBase64(obj.getFotoBase64());
+						fileBytes = new Base64().decodeBase64(obj.getFotoBase64());//Transforma de base64 para bytes
 					}
 
 					else if (tipo.equalsIgnoreCase("curriculo")) {
 
 						contentType = obj.getContentTypeCurriculo();
-						fileBytes = new Base64().decodeBase64(obj.getCurriculoBase64());//Transforma de base64 para bytes
+						fileBytes = new Base64().decodeBase64(obj.getCurriculoBase64());
 					}
 
 					response.setHeader("Content-Disposition",
@@ -188,26 +188,28 @@ public class Usuario extends HttpServlet {
 //						Início miniatura da imagem {
 							
 //							Transformar em um bufferedImage:
-							BufferedImage bI = ImageIO.read(new ByteArrayInputStream(byteImagem));
+							byte []imageByteDecode = new Base64().decodeBase64(fotoBase64); //Transforma de base64 para bytes
+							
+							BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageByteDecode));
 
 //							Pegar o tipo da Imagem, esse tipo retorna um inteiro:
-							int type = bI.getType() == 0 ? bI.TYPE_INT_ARGB : bI.getType();
+							int type = bufferedImage.getType() == 0 ? bufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
 							
 //							Cria imagem em miniatura:
 							BufferedImage resizedImage = new BufferedImage(100, 100, type);
 							Graphics2D g = resizedImage.createGraphics();
 							
 //							Trasforma a miniatura em uma imagem:
-							g.drawImage(resizedImage, 0, 0,100,100, null);
+							g.drawImage(bufferedImage, 0, 0,100,100, null);// A miniatura precisa ser jogada para o buffered
+							g.dispose(); //Finaliza o processo.
 							
 //							Escrever imagem novamente:
 							ByteArrayOutputStream baos = new ByteArrayOutputStream();
-							ImageIO.write(resizedImage, "png", baos);
+							ImageIO.write(resizedImage, "png", baos); //escreve com a imagem cortada(resizedImage).
+//							aqui ^^ será impresso na memória
 							
 //							Agora vamos ter a imagem em miniatura:
-							String miniaturaBase64 = "data:image/png;dase64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
-							
-							System.out.println(miniaturaBase64);
+							String miniaturaBase64 = "data:image/png;base64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
 							
 							usuario.setFotoBase64Miniatura(miniaturaBase64);
 							
