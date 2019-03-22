@@ -19,6 +19,9 @@ public class BeanCursoJsp {
 	private String curriculoBase64;
 	private String contentTypeCurriculo;
 	
+	private boolean atualizarImage = true;
+	private boolean atualizarPDF = true;
+	
 	private String tempFotoUser; /*atributo aux*/
 
 	public String getLogin() {
@@ -158,6 +161,22 @@ public class BeanCursoJsp {
 	public String getTempFotoUser() {
 		tempFotoUser = "data:" + contentType + ";base64," + fotoBase64;
 		return tempFotoUser;
+	}
+
+	public boolean isAtualizarImage() {
+		return atualizarImage;
+	}
+
+	public void setAtualizarImage(boolean atualizarImage) {
+		this.atualizarImage = atualizarImage;
+	}
+
+	public boolean isAtualizarPDF() {
+		return atualizarPDF;
+	}
+
+	public void setAtualizarPDF(boolean atualizarPDF) {
+		this.atualizarPDF = atualizarPDF;
 	}	
 	
 }

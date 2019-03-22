@@ -1,0 +1,76 @@
+precisamos criar uma rotina que não precise usar aqueles campos ocultos da tela pos será um processamento desnecessário.
+
+1 - Vamos remover tudo relacionado a esse campo temporário.
+
+2 - Vamos decidir quando criar um SQL pra atualizar a imagem e PDF
+
+3 - Vamos criar outros sql no DAO e vamos, através de uma condição, definir qual sql será usado.
+	StringBuilder sql = new StringBuilder();
+	
+	append: acrescentar. - vai funcionar como a concatenação porém eu posso definir uma condição para que um determinado trecho seja concatenado.
+	
+	sql.append("UPDATE usuario SET login = ?, senha = ?, nome = ?, "); esse será padrão para todos os outros, será o começo da string de sql.
+	
+	sql.append("UPDATE usuario SET login = ?, senha = ?, nome = ?, ");
+	sql.append("telefone = ?, cep = ?, rua = ?, bairro = ?, cidade = ?, ");
+	sql.append("estado = ?, ibge = ?,"); Esses vão ser padrões.
+	
+	agora se precisar atualizar a imagem será concatenado com a parte do sql que atualiza a foto:
+		
+		if(usuario.isAtualizarImage()) {
+			sql.append("fotobase64 = ?, contenttype = ?,");
+		}
+
+4 - Eu preciso fazer a mesma condição na hora de inserir os dados com o preparedstatment
+	
+		if(usuario.isAtualizarImage()) {
+			pmt.setString(11, usuario.getFotoBase64());
+			pmt.setString(12, usuario.getContentType());
+		}
+		
+		será inserido também na miniatura pôs é imagem.
+		
+5 - Temos que fazer mesmo processo pro PDF e no final dar um toString no sql porque o sql esta quebrado:
+	PreparedStatement pmt = connection.prepareStatement(sql.toString());
+	
+6 - Precisamos execultar algumas condições para que o código funcione:
+
+	PreparedStatement pmt = connection.prepareStatement(sql.toString());
+			pmt.setString(1, usuario.getLogin());
+			pmt.setString(2, usuario.getSenha());
+			pmt.setString(3, usuario.getNome());
+			pmt.setString(4, usuario.getTelefone());
+			pmt.setString(5, usuario.getCep());
+			pmt.setString(6, usuario.getRua());
+			pmt.setString(7, usuario.getBairro());
+			pmt.setString(8, usuario.getCidade());
+			pmt.setString(9, usuario.getEstado());
+			pmt.setString(10,usuario.getIbge());
+			
+			if(usuario.isAtualizarImage()) {
+				pmt.setString(11, usuario.getFotoBase64());
+				pmt.setString(12, usuario.getContentType());
+			}
+			
+			if(usuario.isAtualizarPDF()) {
+				
+				if(!usuario.isAtualizarImage()) {
+					
+					System.out.println("Entrou na condição se o PDF for verdadeiro");
+					pmt.setString(11, usuario.getCurriculoBase64());
+					pmt.setString(12, usuario.getContentTypeCurriculo());
+					
+				} else {
+					System.out.println("entrou mesmo sendo falso.");
+					pmt.setString(13, usuario.getCurriculoBase64());
+					pmt.setString(14, usuario.getContentTypeCurriculo());
+				}
+				
+			} else if(usuario.isAtualizarImage()) {
+				pmt.setString(13, usuario.getFotoBase64Miniatura());
+			}
+			
+			if(usuario.isAtualizarImage() && usuario.isAtualizarPDF()) {
+				pmt.setString(15, usuario.getFotoBase64Miniatura());
+			}
+			

@@ -150,16 +150,30 @@ public class UsuarioDAO {
 
 	public void atualizar(BeanCursoJsp usuario) {
 //		Vai execultar a Atualização
-	
-		String sql = "UPDATE usuario SET login = ?, senha = ?, nome = ?, "
-				+ "telefone = ?, cep = ?, rua = ?, bairro = ?, cidade = ?, "
-				+ "estado = ?, ibge = ?, fotobase64 = ?, contenttype = ?, "
-				+ "curriculobase64 = ?, contenttypecurriculo = ?, "
-				+ "fotobase64miniatura = ? WHERE id =" +usuario.getId(); 
+		
+		StringBuilder sql = new StringBuilder();
+
+		sql.append(" UPDATE usuario SET login = ?, senha = ?, nome = ?, "); // Essa parte será em comum entre todos eles.
+		sql.append(" telefone = ?, cep = ?, rua = ?, bairro = ?, cidade = ?, ");
+		sql.append(" estado = ?, ibge = ?");
+
+		if (usuario.isAtualizarImage()) {
+			sql.append(", fotobase64 = ?, contenttype = ?");
+		}
+
+		if (usuario.isAtualizarPDF()) {
+			sql.append(", curriculobase64 = ?, contenttypecurriculo = ? ");
+		}
+
+		if (usuario.isAtualizarImage()) {
+			sql.append(", fotobase64miniatura = ? ");
+		}
+
+		sql.append(" WHERE id =" + usuario.getId());
 		
 		try {
 			
-			PreparedStatement pmt = connection.prepareStatement(sql);
+			PreparedStatement pmt = connection.prepareStatement(sql.toString());
 			pmt.setString(1, usuario.getLogin());
 			pmt.setString(2, usuario.getSenha());
 			pmt.setString(3, usuario.getNome());
@@ -170,11 +184,33 @@ public class UsuarioDAO {
 			pmt.setString(8, usuario.getCidade());
 			pmt.setString(9, usuario.getEstado());
 			pmt.setString(10,usuario.getIbge());
-			pmt.setString(11, usuario.getFotoBase64());
-			pmt.setString(12, usuario.getContentType());
-			pmt.setString(13, usuario.getCurriculoBase64());
-			pmt.setString(14, usuario.getContentTypeCurriculo());
-			pmt.setString(15, usuario.getFotoBase64Miniatura());
+			
+			if(usuario.isAtualizarImage()) {
+				pmt.setString(11, usuario.getFotoBase64());
+				pmt.setString(12, usuario.getContentType());
+			}
+			
+			if(usuario.isAtualizarPDF()) {
+				
+				if(!usuario.isAtualizarImage()) {
+					
+					System.out.println("Entrou na condição se o PDF for verdadeiro");
+					pmt.setString(11, usuario.getCurriculoBase64());
+					pmt.setString(12, usuario.getContentTypeCurriculo());
+					
+				} else {
+					System.out.println("entrou mesmo sendo falso.");
+					pmt.setString(13, usuario.getCurriculoBase64());
+					pmt.setString(14, usuario.getContentTypeCurriculo());
+				}
+				
+			} else if(usuario.isAtualizarImage()) {
+				pmt.setString(13, usuario.getFotoBase64Miniatura());
+			}
+			
+			if(usuario.isAtualizarImage() && usuario.isAtualizarPDF()) {
+				pmt.setString(15, usuario.getFotoBase64Miniatura());
+			}
 			
 			connection.commit();
 			

@@ -216,10 +216,8 @@ public class Usuario extends HttpServlet {
 //						}
 
 					} else {
-
-						usuario.setFotoBase64(request.getParameter("fotoTemp")); // Já vem em Base64 pois vem do BD.
-																					// pode ser setado direto.
-						usuario.setContentType(request.getParameter("contentTypeTemp")); // Faltou o conentType
+						usuario.setAtualizarImage(false);//ignora o campo de imagem.
+						usuario.setContentType(request.getParameter("contentTypeTemp"));
 
 					}
 
@@ -235,7 +233,7 @@ public class Usuario extends HttpServlet {
 
 					} else {
 
-						usuario.setCurriculoBase64(request.getParameter("fotoTempPDF"));
+						usuario.setAtualizarPDF(false);//ignora o campo de PDF.
 						usuario.setContentTypeCurriculo(request.getParameter("contentTypeTempPDF"));
 
 					}
