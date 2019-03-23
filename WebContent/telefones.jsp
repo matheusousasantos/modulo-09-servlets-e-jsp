@@ -11,12 +11,11 @@
 <link href="resourses/css/cadastro.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<a href="acessoliberado.jsp"
-		style="text-decoration: none; color: black;">Inicio</a>
-	<a href="index.jsp" style="text-decoration: none; color: black;">Sair</a>
+	<a href="acessoliberado.jsp"><img title="Início" src="resourses/img/home.png" width="50px"></a>
+	<a href="index.jsp"><img title="Início" src="resourses/img/sair.png" width="50px"></a>
 
 	<center>
-		<h1>Cadastro de Telefones</h1>
+		<h1>Lista de Telefones</h1>
 		<h3 style="color: orange">${msg}</h3>
 
 

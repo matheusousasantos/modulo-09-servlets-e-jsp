@@ -1,0 +1,13 @@
+Erros no sistema.
+
+1 - Definindo um valor máximo para o campo quantidade:
+
+	Vamos precisar usar o JQuery:
+	
+	<td><input type="text" id="quantidade" name="quantidade" value ="${x.quantidade}" maxlength="6"></td>
+	
+	 $(document).ready(function() {                            - Na hora que abre a tela
+		 $("#quantidade").keyup(function(){                    - evento do teclado
+			 $("#quantidade").val(this.value.match(/[0-9]*/)); - só vai deixar digitar o valor de 0 a 9.
+		 });
+	 });

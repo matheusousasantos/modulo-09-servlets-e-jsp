@@ -33,17 +33,17 @@
 			
 			<tr>
 				<td>NOME</td>
-				<td><input type="text" id="nome" name="nome" value ="${x.nome}" maxlength="20"></td>
+				<td><input type="text" id="nome" name="nome" value ="${x.nome}" maxlength="7"></td>
 			</tr>
 			
 			<tr>
 				<td>QUANTIDADE Uni.</td>
-				<td><input type="number" id="quantidade" name="quantidade" value ="${x.quantidade}" maxlength="10"></td>
+				<td><input type="text" id="quantidade" name="quantidade" value ="${x.quantidade}" maxlength="7"></td>
 			</tr>
 			
 			<tr>
 				<td>VALOR</td>
-				<td><input type="text" id="valor" maxlength="9" data-thousands="." data-decimal="," 
+				<td><input type="text" id="valor" maxlength="8" data-thousands="." data-decimal="," 
 				data-precision="2" name="valor" value ="${x.valorEmTexto}" ></td>
 			</tr>
 			
@@ -121,7 +121,13 @@
 
 	$(function() {
 	    $('#valor').maskMoney();
-	 })
+	 });
+	 
+	 $(document).ready(function() {
+		 $("#quantidade").keyup(function(){
+			 $("#quantidade").val(this.value.match(/[0-9]*/));
+		 });
+	 });
 
 </script>
 
