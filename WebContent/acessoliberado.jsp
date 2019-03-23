@@ -2,6 +2,9 @@
 <html>
 	<body>
 	
+	<a href="acessoliberado.jsp"><img title="Início" src="resourses/img/home.png" width="50px"></a>
+	<a href="index.jsp"><img title="Início" src="resourses/img/sair.png" width="50px"></a>
+	
 		<center style="padding-top: 10%;">
 			<h3>Bem vindo ao sistema</h3>
 			

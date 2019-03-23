@@ -1,0 +1,11 @@
+Criar uma opção pra saber se usuário tem certeza que quer excluir um objto
+
+1 - podemos fazer com JavaScript:
+	usamos o método do JS 'onclick();'
+	
+	obs: Quando usamos um método js com retorno true ou false caso esse retorno for falso não vai acontecer nada.
+		 <a href="salvarUsuario?acao=delete&user=${user.id}" onclick="return false;" >
+		 se no caso for true ele executa normal
+
+2 - Agora podemos usar uma função exclusiva do js que é: return conform('Confirmar a exclusão?'), onde o que está em '' 
+    é a mensagem que irá aparecer quando o sistema fizer a pergunta. não pode esquecer do return que será 'true ou false'

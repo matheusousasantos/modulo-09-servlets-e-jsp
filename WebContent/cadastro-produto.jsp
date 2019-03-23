@@ -81,7 +81,7 @@
 				<td><fmt:formatNumber type="number" maxFractionDigits="2" value="${x.valor}"/></td>
 				<td><a href="salvarProduto?acao=deletar&&id=${x.id}" title="Exclur">
 				
-				<img src="resourses/img/botao-excluir.jpg" width="20px"/></a></td>
+				<img src="resourses/img/botao-excluir.jpg" width="20px" onclick="return confirm('Confirmar a exclusão?');"/></a></td>
 				
 				<td><a href="salvarProduto?acao=editar&&id=${x.id}" title="Editar">
 				<img src="resourses/img/botao-editar.png" width="20px"/></a></td>

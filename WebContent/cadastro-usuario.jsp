@@ -160,7 +160,7 @@
 					
 					<td><c:out value="${user.nome}"></c:out></td>
 
-					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
+					<td><a href="salvarUsuario?acao=delete&user=${user.id}" onclick="return confirm('Confirmar a exclusão?');" ><img
 							src="resourses/img/botao-excluir.jpg" alt="Excluir"
 							title="excluir" width="20px"></a></td>
 

@@ -84,7 +84,7 @@
 
 					<td><a href="salvarTelefones?acao=deleteFone&foneId=${fone.id}"><img
 							src="resourses/img/botao-excluir.jpg" alt="Excluir"
-							title="excluir" width="20px"></a></td>
+							title="excluir" width="20px" onclick="return confirm('Confirmar a exclusão?');"></a></td>
 				</tr>
 			</c:forEach>
 		</table>
