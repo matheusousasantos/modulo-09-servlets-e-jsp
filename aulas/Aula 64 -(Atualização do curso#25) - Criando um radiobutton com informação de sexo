@@ -1,0 +1,44 @@
+Vamos fazer um radio button:
+
+1 - Vamos criar um campo sexo com dois valores:
+
+	<td>Sexo</td>
+	<td>
+		<input type="radio" name="sexo" value="masculino">Masculino</input>
+		<input type="radio" name="sexo" value="feminino">Feminino</input>
+	</td>
+	
+	Obs - O nome precisa ser o mesmo somente o valor será diferente.
+	
+2 - Vamos arrumar o DAO, Bean, Servlet e o banco de dados.
+
+3 - Pra ser mostrado precisamos fazer a mesma coisa que fizemos com o ativo da aula passada:
+	
+	<input type="radio" name="sexo" 
+								
+	<% 
+	   if(request.getAttribute("user") != null){
+										
+		BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+										
+		if(user.getSexo().equalsIgnoreCase("masculino")){
+			out.print(" ");
+			out.print("checked=\"checked\""); - vamos coloca-lo dentro do componente.
+			out.print(" ");
+		}
+	  }
+								
+	%>
+								
+	value="masculino">Masculino</input>
+	
+	
+4 - Você precisar ter o ninimo do JSP na parte da view.
+	
+	
+	
+	
+	
+	
+	
+	
