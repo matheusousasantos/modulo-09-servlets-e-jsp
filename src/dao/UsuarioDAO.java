@@ -105,6 +105,7 @@ public class UsuarioDAO {
 				obj.setContentType(rs.getString("contenttype"));
 				obj.setCurriculoBase64(rs.getString("curriculobase64"));
 				obj.setContentTypeCurriculo(rs.getString("contenttypecurriculo"));
+				obj.setAtivo(rs.getBoolean("ativo"));
 				
 				lista.add(obj);
 			}
@@ -138,6 +139,7 @@ public class UsuarioDAO {
 				obj.setContentType(rs.getString("contenttype"));
 				obj.setCurriculoBase64(rs.getString("curriculobase64"));
 				obj.setContentTypeCurriculo(rs.getString("contenttypecurriculo"));
+				obj.setAtivo(rs.getBoolean("ativo"));
 				
 				return obj;
 			}

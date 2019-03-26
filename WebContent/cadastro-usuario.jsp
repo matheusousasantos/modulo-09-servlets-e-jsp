@@ -1,3 +1,4 @@
+<%@page import="beans.BeanCursoJsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -95,7 +96,22 @@
 							<td><input type="text" id="ibge" name="ibge" value="${user.ibge}" maxlength="20"></td>
 							
 							<td>Ativo:</td>
-							<td><input type="checkbox" id="ativo" name="ativo"></td>
+							<td><input type="checkbox" id="ativo" name="ativo" 
+							<%
+								if(request.getAttribute("user") != null) {
+									BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+									
+									if(user.isAtivo()){
+										
+										out.print(" ");
+										out.print("checked=\"checked\"");
+										out.print(" ");
+									}
+								}
+							
+							%>
+							
+							></td>
 							
 						</tr>
 						

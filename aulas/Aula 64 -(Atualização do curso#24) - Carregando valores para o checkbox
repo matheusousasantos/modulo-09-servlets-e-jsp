@@ -1,0 +1,40 @@
+Vamos agora mostrar do banco de dados o valor referente ao ativo.
+
+1 - se usar-mos somente o retorno do banco ele não será checkado precisamos definir na mão usando o JSP:
+	
+	<td><input type="checkbox" id="ativo" name="ativo"
+	 
+			<%
+			if(request.getAttribute("user") != null) { - objeto retornado da servlet ao consultar(user).
+				
+				BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+										
+				if(user.isAtivo()){
+												
+				}
+			}
+								
+			%>
+							
+		></td>
+		
+2 - Como eu estou dentro da tag posso definir um valor pra ela:
+
+	if(user.isAtivo()){
+	
+		out.print("checked=\"checked\""); - é como se fosse checked="checked" usando na própria tag:
+		<input type="checkbox" id="ativo" name="ativo" checked="checked"/>
+		
+		para que seja válido no html, tambem é preciso dar um espaço para que não tenha nenhum erro:
+		out.print(" ");
+												
+	}
+			
+			
+			
+			
+			
+			
+			
+			
+			
