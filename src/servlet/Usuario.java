@@ -297,8 +297,14 @@ public class Usuario extends HttpServlet {
 				}
 
 				else if (id != null && !id.isEmpty() && podeInserir) {
+					if(!daoUsuario.validarLoginUpdate(login,id)) {
+						request.setAttribute("msg", "Login já existe para outro Usuário");
+					} else {
+					
 					daoUsuario.atualizar(usuario);
-					System.out.println("Atualizado...");
+					
+					}
+					
 				}
 
 				if (!podeInserir) {
@@ -307,7 +313,7 @@ public class Usuario extends HttpServlet {
 
 				RequestDispatcher view = request.getRequestDispatcher("cadastro-usuario.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
-				request.setAttribute("msg", "Salvo com sucesso!");
+				//request.setAttribute("msg", "Salvo com sucesso!");
 				view.forward(request, response);
 
 			} catch (Exception e) {
