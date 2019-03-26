@@ -80,42 +80,53 @@ public class UsuarioDAO {
 		
 	}
 	
-	public List<BeanCursoJsp> listar() throws SQLException  {
+
+	private List<BeanCursoJsp> consultarUsuarios(String sql) throws SQLException {
+		
 		List<BeanCursoJsp> lista = new ArrayList<>();
+		PreparedStatement list = connection.prepareStatement(sql);
+		ResultSet rs = list.executeQuery();
 		
+		while(rs.next()) {
+			
+			BeanCursoJsp obj = new BeanCursoJsp();
+			obj.setId(rs.getLong("id"));
+			obj.setLogin(rs.getString("login"));
+			obj.setSenha(rs.getString("senha"));
+			obj.setNome(rs.getString("nome"));
+			obj.setTelefone(rs.getString("telefone"));
+			obj.setCep(rs.getString("cep"));
+			obj.setRua(rs.getString("rua"));
+			obj.setBairro(rs.getString("bairro"));
+			obj.setCidade(rs.getString("cidade"));
+			obj.setEstado(rs.getString("estado"));
+			obj.setIbge(rs.getString("ibge"));
+			//obj.setFotoBase64(rs.getString("fotobase64"));
+			obj.setFotoBase64Miniatura(rs.getString("fotobase64miniatura"));
+			obj.setContentType(rs.getString("contenttype"));
+			obj.setCurriculoBase64(rs.getString("curriculobase64"));
+			obj.setContentTypeCurriculo(rs.getString("contenttypecurriculo"));
+			obj.setAtivo(rs.getBoolean("ativo"));
+			obj.setSexo(rs.getString("sexo"));
+			obj.setPerfil(rs.getString("perfil"));
+			
+			lista.add(obj);
+		}
+		
+		return lista;
+		
+	}
+	
+	public List<BeanCursoJsp> listar() throws SQLException  {
+
 		String sql = "SELECT * FROM usuario WHERE login <> 'admin'";
-		
-			PreparedStatement list = connection.prepareStatement(sql);
-			ResultSet rs = list.executeQuery();
+		return consultarUsuarios(sql);
 			
-			while(rs.next()) {
-				
-				BeanCursoJsp obj = new BeanCursoJsp();
-//				Traz o Id também
-				obj.setId(rs.getLong("id"));
-				obj.setLogin(rs.getString("login"));
-				obj.setSenha(rs.getString("senha"));
-				obj.setNome(rs.getString("nome"));
-				obj.setTelefone(rs.getString("telefone"));
-				obj.setCep(rs.getString("cep"));
-				obj.setRua(rs.getString("rua"));
-				obj.setBairro(rs.getString("bairro"));
-				obj.setCidade(rs.getString("cidade"));
-				obj.setEstado(rs.getString("estado"));
-				obj.setIbge(rs.getString("ibge"));
-				//obj.setFotoBase64(rs.getString("fotobase64"));
-				obj.setFotoBase64Miniatura(rs.getString("fotobase64miniatura"));
-				obj.setContentType(rs.getString("contenttype"));
-				obj.setCurriculoBase64(rs.getString("curriculobase64"));
-				obj.setContentTypeCurriculo(rs.getString("contenttypecurriculo"));
-				obj.setAtivo(rs.getBoolean("ativo"));
-				obj.setSexo(rs.getString("sexo"));
-				obj.setPerfil(rs.getString("perfil"));
-				
-				lista.add(obj);
-			}
-			
-			return lista;
+	}
+	
+	public List<BeanCursoJsp> listar(String descricaoconsulta) throws SQLException  {
+		String sql = "SELECT * FROM usuario WHERE login <> 'admin' AND nome LIKE '%"+descricaoconsulta+"%'";
+		return consultarUsuarios(sql);
 	}
 
 	public BeanCursoJsp consultar(String id) {

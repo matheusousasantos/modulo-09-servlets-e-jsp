@@ -1,0 +1,67 @@
+Vamos consultar por um nome:
+
+1 - Vamos criar um formulário com somente um campo de texto e um botão:
+	
+	<form action="" method="POST">
+		
+			<ul class="form-style-1">
+				<li>
+					<table>
+						<tr>
+							<td>Descrição</td>
+							<td><input type="text" id="descricaoconsulta" id="descricaoconsulta"></td>
+							<td><input type="submit" value="Pesquisar"></td>
+						</tr>
+					</table>
+				</li>
+			</ul>
+		
+		</form>
+		
+2 - Agora vamos criar uma servlet própria pra pesquisa:
+	
+3 - Eu vou ter dois códigos iguais tanto o de listar todos quanto o de listar todos passando a descrição, podemos refatorar o código:
+    a partir do recebimento do parametro eu vou selecionar tudo que eu quero refatorar.
+    
+    seleciono o código, botão direito, Refactor -> Extract Method daí eu  altero o nome do usuários
+    assim, na hora que construir-mos, vamos só precisar passar o sql como parâmetro pra retornar a consulta com os valores, assim:
+    
+    o listar com o parâmetro da descrição será o pesquisar, o que não tem parãmentro nenhum é o que lista todos os usuários.
+    
+3 - Identificando se realmente o usuario escreveu alguma coisa:
+
+	descricaoPesquisa != null && !descricaoPesquisa.trim().isEmpty()
+	
+	if(descricaoPesquisa != null && !descricaoPesquisa.trim().isEmpty()) {
+			
+			try {
+				
+				List<BeanCursoJsp> listaPesquisa = dao.listar(descricaoPesquisa);
+				
+				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
+				request.setAttribute("usuarios", listaPesquisa);
+				view.forward(request, response);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		} else {
+			
+			
+			try {
+				
+				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
+				request.setAttribute("usuarios", dao.listar());
+				view.forward(request, response);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+	Se digitar alguma coisa será mostrada a sua pesquisa senão só carrega novamente os usuários.
+
+

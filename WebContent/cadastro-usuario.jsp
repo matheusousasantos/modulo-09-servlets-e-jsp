@@ -271,6 +271,22 @@
 				</li>
 			</ul>
 		</form>
+		
+		<form action="servletPesquisa" method="POST">
+		
+			<ul class="form-style-1">
+				<li>
+					<table>
+						<tr>
+							<td>Descrição</td>
+							<td><input type="text" id="descricaoconsulta" name="descricaoconsulta"></td>
+							<td><input type="submit" value="Pesquisar"></td>
+						</tr>
+					</table>
+				</li>
+			</ul>
+		
+		</form>
 
 	</center>
 
