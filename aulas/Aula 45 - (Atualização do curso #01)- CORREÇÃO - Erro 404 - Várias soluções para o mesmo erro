@@ -1,0 +1,5 @@
+O erro 404 será do servidor e pode ser várias coisas.
+
+1 - Tudo referente ao Http é a porta.
+
+2 - Voce pode também errar o nome do projeto. ele é referente ao 'context'.
