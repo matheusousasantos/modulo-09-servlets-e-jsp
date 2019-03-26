@@ -93,6 +93,10 @@
 						<tr>
 							<td>IBGE:</td>
 							<td><input type="text" id="ibge" name="ibge" value="${user.ibge}" maxlength="20"></td>
+							
+							<td>Ativo:</td>
+							<td><input type="checkbox" id="ativo" name="ativo"></td>
+							
 						</tr>
 						
 						<tr>

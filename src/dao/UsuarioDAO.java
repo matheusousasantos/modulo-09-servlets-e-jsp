@@ -22,7 +22,7 @@ public class UsuarioDAO {
 	public void salvar(BeanCursoJsp usuario) {
 		String sql ="INSERT INTO usuario(login, senha, nome, telefone, cep, rua, bairro, "
 				+ "cidade, estado, ibge, fotobase64, contenttype, curriculobase64, "
-				+ "contenttypecurriculo, fotobase64miniatura) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "contenttypecurriculo, fotobase64miniatura, ativo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			
 			PreparedStatement insert = connection.prepareStatement(sql);
@@ -41,6 +41,7 @@ public class UsuarioDAO {
 			insert.setString(13, usuario.getCurriculoBase64());
 			insert.setString(14, usuario.getContentTypeCurriculo());
 			insert.setString(15, usuario.getFotoBase64Miniatura());
+			insert.setBoolean(16, usuario.isAtivo());
 			
 			insert.execute();
 			connection.commit();
@@ -155,7 +156,7 @@ public class UsuarioDAO {
 
 		sql.append(" UPDATE usuario SET login = ?, senha = ?, nome = ?, "); // Essa parte será em comum entre todos eles.
 		sql.append(" telefone = ?, cep = ?, rua = ?, bairro = ?, cidade = ?, ");
-		sql.append(" estado = ?, ibge = ?");
+		sql.append(" estado = ?, ibge = ?, ativo = ?");
 
 		if (usuario.isAtualizarImage()) {
 			sql.append(", fotobase64 = ?, contenttype = ?");
@@ -184,10 +185,11 @@ public class UsuarioDAO {
 			pmt.setString(8, usuario.getCidade());
 			pmt.setString(9, usuario.getEstado());
 			pmt.setString(10,usuario.getIbge());
+			pmt.setBoolean(11,usuario.isAtivo());
 			
 			if(usuario.isAtualizarImage()) {
-				pmt.setString(11, usuario.getFotoBase64());
-				pmt.setString(12, usuario.getContentType());
+				pmt.setString(12, usuario.getFotoBase64());
+				pmt.setString(13, usuario.getContentType());
 			}
 			
 			if(usuario.isAtualizarPDF()) {
@@ -195,21 +197,21 @@ public class UsuarioDAO {
 				if(!usuario.isAtualizarImage()) {
 					
 					System.out.println("Entrou na condição se o PDF for verdadeiro");
-					pmt.setString(11, usuario.getCurriculoBase64());
-					pmt.setString(12, usuario.getContentTypeCurriculo());
+					pmt.setString(12, usuario.getCurriculoBase64());
+					pmt.setString(13, usuario.getContentTypeCurriculo());
 					
 				} else {
 					System.out.println("entrou mesmo sendo falso.");
-					pmt.setString(13, usuario.getCurriculoBase64());
-					pmt.setString(14, usuario.getContentTypeCurriculo());
+					pmt.setString(14, usuario.getCurriculoBase64());
+					pmt.setString(15, usuario.getContentTypeCurriculo());
 				}
 				
 			} else if(usuario.isAtualizarImage()) {
-				pmt.setString(13, usuario.getFotoBase64Miniatura());
+				pmt.setString(14, usuario.getFotoBase64Miniatura());
 			}
 			
 			if(usuario.isAtualizarImage() && usuario.isAtualizarPDF()) {
-				pmt.setString(15, usuario.getFotoBase64Miniatura());
+				pmt.setString(16, usuario.getFotoBase64Miniatura());
 			}
 			
 			connection.commit();

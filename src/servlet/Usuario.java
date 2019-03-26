@@ -79,7 +79,7 @@ public class Usuario extends HttpServlet {
 					if (tipo.equalsIgnoreCase("imagem")) {
 
 						contentType = obj.getContentType();
-						fileBytes = new Base64().decodeBase64(obj.getFotoBase64());//Transforma de base64 para bytes
+						fileBytes = new Base64().decodeBase64(obj.getFotoBase64());// Transforma de base64 para bytes
 					}
 
 					else if (tipo.equalsIgnoreCase("curriculo")) {
@@ -107,7 +107,7 @@ public class Usuario extends HttpServlet {
 					os.close();
 				}
 			} else {
-				
+
 				RequestDispatcher view = request.getRequestDispatcher("/cadastro-usuario.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
@@ -168,6 +168,12 @@ public class Usuario extends HttpServlet {
 			usuario.setEstado(estado);
 			usuario.setIbge(ibge);
 
+			if (request.getParameter("ativo") != null && request.getParameter("ativo").equalsIgnoreCase("on")) {
+				usuario.setAtivo(true);
+			} else {
+				usuario.setAtivo(false);
+			}
+
 			try {
 
 				if (ServletFileUpload.isMultipartContent(request)) {
@@ -175,48 +181,52 @@ public class Usuario extends HttpServlet {
 					Part imagemFoto = request.getPart("foto");
 
 					if (imagemFoto != null && imagemFoto.getInputStream().available() > 0) {
-						
-//						pega o fluxo de dados da imagem e transforma ela em array de bytes
+
+						// pega o fluxo de dados da imagem e transforma ela em array de bytes
 						byte[] byteImagem = converteStreamParaByte(imagemFoto.getInputStream());
 
-//						transforma de array de bytes para Base64
-						String fotoBase64 = new Base64().encodeBase64String(byteImagem); //Trasforma de bytes para base64
+						// transforma de array de bytes para Base64
+						String fotoBase64 = new Base64().encodeBase64String(byteImagem); // Trasforma de bytes para
+																							// base64
 
 						usuario.setFotoBase64(fotoBase64);
 						usuario.setContentType(imagemFoto.getContentType());
-						
-//						Início miniatura da imagem {
-							
-//							Transformar em um bufferedImage:
-							byte []imageByteDecode = new Base64().decodeBase64(fotoBase64); //Transforma de base64 para bytes
-							
-							BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageByteDecode));
 
-//							Pegar o tipo da Imagem, esse tipo retorna um inteiro:
-							int type = bufferedImage.getType() == 0 ? bufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
-							
-//							Cria imagem em miniatura:
-							BufferedImage resizedImage = new BufferedImage(100, 100, type);
-							Graphics2D g = resizedImage.createGraphics();
-							
-//							Trasforma a miniatura em uma imagem:
-							g.drawImage(bufferedImage, 0, 0,100,100, null);// A miniatura precisa ser jogada para o buffered
-							g.dispose(); //Finaliza o processo.
-							
-//							Escrever imagem novamente:
-							ByteArrayOutputStream baos = new ByteArrayOutputStream();
-							ImageIO.write(resizedImage, "png", baos); //escreve com a imagem cortada(resizedImage).
-//							aqui ^^ será impresso na memória
-							
-//							Agora vamos ter a imagem em miniatura:
-							String miniaturaBase64 = "data:image/png;base64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
-							
-							usuario.setFotoBase64Miniatura(miniaturaBase64);
-							
-//						}
+						// Início miniatura da imagem {
+
+						// Transformar em um bufferedImage:
+						byte[] imageByteDecode = new Base64().decodeBase64(fotoBase64); // Transforma de base64 para
+																						// bytes
+
+						BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageByteDecode));
+
+						// Pegar o tipo da Imagem, esse tipo retorna um inteiro:
+						int type = bufferedImage.getType() == 0 ? bufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+
+						// Cria imagem em miniatura:
+						BufferedImage resizedImage = new BufferedImage(100, 100, type);
+						Graphics2D g = resizedImage.createGraphics();
+
+						// Trasforma a miniatura em uma imagem:
+						g.drawImage(bufferedImage, 0, 0, 100, 100, null);// A miniatura precisa ser jogada para o
+																			// buffered
+						g.dispose(); // Finaliza o processo.
+
+						// Escrever imagem novamente:
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						ImageIO.write(resizedImage, "png", baos); // escreve com a imagem cortada(resizedImage).
+						// aqui ^^ será impresso na memória
+
+						// Agora vamos ter a imagem em miniatura:
+						String miniaturaBase64 = "data:image/png;base64,"
+								+ DatatypeConverter.printBase64Binary(baos.toByteArray());
+
+						usuario.setFotoBase64Miniatura(miniaturaBase64);
+
+						// }
 
 					} else {
-						usuario.setAtualizarImage(false);//ignora o campo de imagem.
+						usuario.setAtualizarImage(false);// ignora o campo de imagem.
 						usuario.setContentType(request.getParameter("contentTypeTemp"));
 
 					}
@@ -226,19 +236,19 @@ public class Usuario extends HttpServlet {
 
 					if (curriculoPdf != null && curriculoPdf.getInputStream().available() > 0) {
 
-						String curriculoBase64 = new Base64().encodeBase64String(converteStreamParaByte(curriculoPdf.getInputStream()));
+						String curriculoBase64 = new Base64()
+								.encodeBase64String(converteStreamParaByte(curriculoPdf.getInputStream()));
 
 						usuario.setCurriculoBase64(curriculoBase64);
 						usuario.setContentTypeCurriculo(curriculoPdf.getContentType());
 
 					} else {
 
-						usuario.setAtualizarPDF(false);//ignora o campo de PDF.
+						usuario.setAtualizarPDF(false);// ignora o campo de PDF.
 						usuario.setContentTypeCurriculo(request.getParameter("contentTypeTempPDF"));
 
 					}
 				}
-				
 
 				String msg = null;
 				boolean podeInserir = true;

@@ -18,6 +18,7 @@ public class BeanCursoJsp {
 	private String contentType;
 	private String curriculoBase64;
 	private String contentTypeCurriculo;
+	private boolean ativo;
 	
 	private boolean atualizarImage = true;
 	private boolean atualizarPDF = true;
@@ -165,6 +166,14 @@ public class BeanCursoJsp {
 
 	public boolean isAtualizarImage() {
 		return atualizarImage;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public void setAtualizarImage(boolean atualizarImage) {

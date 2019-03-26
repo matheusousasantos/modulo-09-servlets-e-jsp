@@ -1,0 +1,44 @@
+Trabalhando com checkbox.
+	<td><input type="checkbox" id="ativo" name="ativo"></td>
+	
+	quando ele é mandando pro servidor checado será enviado o valor 'on'.
+	se ele não for checado ele vai 'null'.
+	
+1 - Vamos precisar fazer uma verificação pra poder-mos setar o objeto:
+	
+	if(request.getParameter("ativo").equalsIgnoreCase("on")) {
+	
+		usuario.setAtivo(true);
+	} else {
+	
+		usuario.setAtivo(false);
+	}
+	
+2 - Precisamos definir no dao esse novo atributo.
+	Obs - Quando formos inserir um novo atributo no dao é importante colocar-mos antes da imagem e do curriculo pra não precisar alterar
+	a parte das condições, pulando uma casa cada atributo depois do isAtivo();
+	
+3 - Agora vamos pro banco de dados:
+	Obs - a sequencia das colunas do banco não tem nada a ver com a sequência que colocamos no código.
+	
+4 - Quando tentamos inserir um objeto sem a  caixinha marcada vamos ter um erro...
+
+	if (request.getParameter("ativo").equalsIgnoreCase("on")) {
+		usuario.setAtivo(true);
+    } else {
+		usuario.setAtivo(false);
+	}
+	
+	se o valor é nulo não podemos jogar pro else pq no if não tem nenhum valor pra ele fazer a verificação.
+	Solução:
+	
+	if (request.getParameter("ativo") != null && request.getParameter("ativo").equalsIgnoreCase("on")) {
+		usuario.setAtivo(true);
+    } else {
+		usuario.setAtivo(false);
+	}
+	
+	
+	
+	
+	
