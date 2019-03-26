@@ -42,7 +42,7 @@
 							<td>Código:</td>
 							<!-- célula     Id: somente leitura-->
 							<td><input type="text" id="id" readonly="readonly" name="id"
-								value="${user.id}" class="field-long"></td>
+								value="${user.id}"></td>
 
 							<td>CEP:</td>
 							<td><input type="text" id="cep" name="cep"
@@ -89,11 +89,6 @@
 							<td>Estado:</td>
 							<td><input type="text" id="estado" name="estado"
 								value="${user.estado}" maxlength="2"></td>
-						</tr>
-
-						<tr>
-							<td>IBGE:</td>
-							<td><input type="text" id="ibge" name="ibge" value="${user.ibge}" maxlength="20"></td>
 							
 							<td>Ativo:</td>
 							<td><input type="checkbox" id="ativo" name="ativo" 
@@ -111,16 +106,15 @@
 							
 							%>
 							
-							></td>
-							
+							></td>	
+								
+								
 						</tr>
-						
+
 						<tr>
-						
-							<td>Foto:</td>
-							<td>
-								<input type="file" name="foto" value="foto">
-							</td>
+							<td>IBGE:</td>
+							<td><input type="text" id="ibge" name="ibge" value="${user.ibge}" maxlength="20"></td>
+							
 							
 							<td>Sexo</td>
 							<td>
@@ -160,16 +154,112 @@
 								
 								value="feminino">Feminino</input>
 							</td>
+							
+						</tr>
+						
+						<tr>
+							
+							<td>Perfil:</td>
+							<td>
+							<select id="perfil" name="perfil" style="width: 185px;">
+							
+								<option value="nao_informado">[--SELECIONE--]</option>
+								
+								<option value="administrador"
+								
+								<% 
+									if(request.getAttribute("user") != null){
+										
+										BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+										
+										if(user.getPerfil().equalsIgnoreCase("administrador")){
+											out.print(" ");
+											out.print("selected=\"selected\"");
+											out.print(" ");
+										}
+									}
+								
+								%>
+								
+								>Administrador</option>
+							
+								<option value="secretario"  
+								
+								<% 
+									if(request.getAttribute("user") != null){
+										
+										BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+										
+										if(user.getPerfil().equalsIgnoreCase("secretario")){
+											out.print(" ");
+											out.print("selected=\"selected\"");
+											out.print(" ");
+										}
+									}
+								
+								%>
+								
+								>Secretário(a)</option>
+						
+								<option value="gerente"
+								
+								<% 
+									if(request.getAttribute("user") != null){
+										
+										BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+										
+										if(user.getPerfil().equalsIgnoreCase("gerente")){
+											out.print(" ");
+											out.print("selected=\"selected\"");
+											out.print(" ");
+										}
+									}
+								
+								%>
+								
+								>Gerente</option>
+								
+								<option value="funcionario"
+								
+								<% 
+									if(request.getAttribute("user") != null){
+										
+										BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+										
+										if(user.getPerfil().equalsIgnoreCase("funcionario")){
+											out.print(" ");
+											out.print("selected=\"selected\"");
+											out.print(" ");
+										}
+									}
+								
+								%>
+								
+								>Funcionário</option>
+								
+							</select>
+							</td>
+							
+							
 						</tr>
 						
 						
 						
 						<tr>
+							
 							<td>Curriculo:</td>
 							<td>
 								<input type="file" name="curriculo" value="curriculo">
 							</td>
+							
+						<tr>
+							
+							<td>Foto:</td>
+							<td>
+								<input type="file" name="foto" value="foto">
+							</td>
 						</tr>
+	
 						<tr>
 							<td></td>
 							<td><input type="submit" value="Salvar"> <input

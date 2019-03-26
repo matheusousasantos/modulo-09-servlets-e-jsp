@@ -1,0 +1,55 @@
+Vamos trabalhar com itens de seleção:
+
+1 - tag html:
+	
+	<td>Perfil:</td>
+	<td>
+		<select id="perfil" name="perfil">
+			<option value="nao_informado">[--SELECIONE--]</option>
+		</select>
+	</td>
+	
+2 - Agora vamos fazer todo aquele processo de inserir um novo atributo tando nno java quanto no banco de dados.
+
+3 - Para mostrar na tela precisamos fazer a mesma coisa com os as tags passada:
+
+	Vamos fazer o mesmo processo porém vamos mudar o atributo: normal na tag(selected="selected")
+	
+	<option value="administrador"
+	
+	<% 
+		if(request.getAttribute("user") != null){
+											
+			BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+											
+			if(user.getPerfil().equalsIgnoreCase("administrador")){
+			
+				out.print(" ");
+				out.print("selected=\"selected\"");
+				out.print(" ");
+			}
+		}						
+	%>
+	
+	>Administrador</option>
+								
+	
+	
+	Agora será feito em todas as opções do selected.
+	
+	<option value="funcionario"
+								
+	<% 
+		if(request.getAttribute("user") != null){
+										
+		BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+										
+		if(user.getPerfil().equalsIgnoreCase("funcionario")){
+			out.print(" ");
+			out.print("selected=\"selected\"");
+			out.print(" ");
+		}
+	}
+								
+	%>
+								
